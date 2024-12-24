@@ -45,6 +45,7 @@ class production:
         return self.production_passive
     
     def get_production_totale(self):
+        self.update_production_passive()
         return self.production_active + self.production_passive
     
     def add_singe(self):

@@ -104,7 +104,7 @@ class MarketingFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.selling_price = 1 # Prix de base
+        self.selling_price = 0.2 # Prix de base
         self.stock_max = 0
 
         # add widgets onto the frame

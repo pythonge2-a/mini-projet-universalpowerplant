@@ -1,5 +1,5 @@
 # gère le stockage de l'énergie produite par les différentes sources d'énergie
-
+#pas utilisée pour le moment 
 class Storage :
     def __init__(self):
         self.stock = 0

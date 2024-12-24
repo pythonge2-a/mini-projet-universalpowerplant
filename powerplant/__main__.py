@@ -7,6 +7,7 @@ app = App() # Création de l'application globale
 kwhCSV_path = os.path.join("assets", "kwh_price.csv")
 prix = KwhPrice(kwhCSV_path) # Création de l'objet prix
 market = marketing() # Création de l'objet marketing
+prod = production() # Création de l'objet production
 
 def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
 
@@ -23,13 +24,20 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prix_vente = app.my_frame.marketing_frame.selling_price
     stock = app.my_frame.price_frame.kwh_stock
     money = app.my_frame.price_frame.money
+    # Production
 
+    production = prod.get_production_totale()
+    if stock + production > app.my_frame.marketing_frame.stock_max:
+        stock = app.my_frame.marketing_frame.stock_max
+    else:
+        stock += production
+
+    # Vente
     if stock > 0: 
-        if app.my_frame.price_frame.kwh_stock < 1: #forcer la vente si le stock est inférieur à 1
-            unite_vendue = app.my_frame.price_frame.kwh_stock
-        else:
-            unite_vendue = market.get_unit_sold(demand, stock)
-
+        unite_vendue = market.get_unit_sold(demand, stock)
+        if unite_vendue > stock:
+            unite_vendue = stock
+    
         money += market.get_user_gain(prix_vente, unite_vendue)
         stock -= unite_vendue
 
@@ -38,13 +46,14 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
         app.my_frame.price_frame.money = money
 
     app.update_game()
-    app.after(1000, loop)
+    app.after(100, loop)
 
 def main(): #initialisation des paramètres de lancement du jeu
-    bank = 1000
-    kwh_stock = 1000
-    kwh_stock_max = 1000
-    
+    bank = 100
+    kwh_stock = 100
+    kwh_stock_max = 2000
+
+    prod.add_moulin()
     app.my_frame.marketing_frame.set_stock_max(kwh_stock_max)
     app.my_frame.price_frame.set_kwh_stock(kwh_stock)
     app.my_frame.price_frame.set_money(bank)
