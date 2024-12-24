@@ -59,8 +59,8 @@ class PriceFrame(customtkinter.CTkFrame):
         return self.money
     
     def update_mk(self):
-        self.price_label.configure(text=f"Avaible Funds : {self.money:4f} fr")
-        self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:4f} kWh")
+        self.price_label.configure(text=f"Avaible Funds : {self.money:.4f} fr")
+        self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:.4f} kWh")
 
 
 class StockFrame(customtkinter.CTkFrame):
@@ -148,7 +148,7 @@ class MarketingFrame(customtkinter.CTkFrame):
     
     # Mise à jour du prix
     def update_price_label(self):
-        self.price_label.configure(text=f"{self.selling_price} fr")
+        self.price_label.configure(text=f"{self.selling_price:.2f} fr")
 
     def increase_price(self):
         self.selling_price += 0.01

@@ -2,12 +2,24 @@
 from powerplant import *
 import os
 
+loopcount = 0
 app = App() # Création de l'application globale
+kwhCSV_path = os.path.join("assets", "kwh_price.csv")
+prix = KwhPrice(kwhCSV_path) # Création de l'objet prix
+market = marketing() # Création de l'objet marketing
 
 def loop(): #boucle de jeu , actualise les paramètres du jeu toute les secondes
-    demand = 20
-    app.update_game()
-    if app.my_frame.price_frame.kwh_stock > 0:
+
+    global loopcount
+    loopcount += 1
+    day = 0
+ 
+    if loopcount % 30 == 0: #actualisation des jours
+        day = loopcount // 30
+
+    demand = prix.get_demand(day, app.my_frame.marketing_frame.selling_price) #Mise à jour de la demande
+
+    if app.my_frame.price_frame.kwh_stock > 0: # Vente d'électricité
         prix_vente = app.my_frame.marketing_frame.selling_price
         unite_vendue = app.my_frame.price_frame.kwh_stock * demand / 100
 
@@ -18,6 +30,7 @@ def loop(): #boucle de jeu , actualise les paramètres du jeu toute les secondes
         app.my_frame.price_frame.kwh_stock -= unite_vendue
         app.my_frame.price_frame.money += gain
 
+    app.update_game()
     app.after(1000, loop)
 
 def run():
@@ -25,11 +38,11 @@ def run():
     app.mainloop()
 
 def main(): #initialisation des paramètres de lancement du jeu
-    '''
-    kwhCSV_path = os.path.join("assets", "kwh_price.csv")
-    prix = KwhPrice(kwhCSV_path) #prix du jour'''
-    app.my_frame.marketing_frame.set_stock_max(1000)
-    app.my_frame.price_frame.set_kwh_stock(1000)
+    bank = 1000
+    kwh_stock = 1000
+    market.set_user_bank(bank)
+    app.my_frame.marketing_frame.set_stock_max(bank)
+    app.my_frame.price_frame.set_kwh_stock(kwh_stock)
 
     run()
 

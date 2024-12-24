@@ -11,8 +11,9 @@ class marketing:
         self.user_price = price
         return self.user_price
 
-    def get_user_price(self):   #retourne le prix de vente utilisateur
-        return self.user_price
+    def set_user_bank(self, bank):    #définit la banque utilisateur (utile pour les tests unitaires)
+        self.bank = bank
+        return self.bank
     
     def get_user_bank(self):    #retourne la valeur de la banque utilisateur
         return self.bank
