@@ -43,9 +43,11 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
 def main(): #initialisation des paramètres de lancement du jeu
     bank = 1000
     kwh_stock = 1000
-    market.set_user_bank(bank)
-    app.my_frame.marketing_frame.set_stock_max(bank)
+    kwh_stock_max = 1000
+    
+    app.my_frame.marketing_frame.set_stock_max(kwh_stock_max)
     app.my_frame.price_frame.set_kwh_stock(kwh_stock)
+    app.my_frame.price_frame.set_money(bank)
 
     loop()
     app.mainloop()
