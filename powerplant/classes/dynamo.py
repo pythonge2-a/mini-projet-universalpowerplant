@@ -37,7 +37,7 @@ class App(ctk.CTk):
 
         # Liste des paliers de vitesse
         self.speed_levels = [0, 1, 2, 3, 4, 5]
-        self.speed_thresholds = [5, 15, 30, 50, 75]  # Paliers progressifs
+        self.speed_thresholds = [5, 10, 20, 35, 55, 80, 110, 145, 185, 230]  # Paliers progressifs
         self.current_speed_index = 0
         self.tours = 0  # Variable pour suivre le nombre de tours
 
@@ -62,7 +62,7 @@ class App(ctk.CTk):
         # Vérifie si le clic est à l'intérieur du cercle extérieur
         if self.is_inside_circle(event.x, event.y, 200, 200, self.outer_circle_radius):
             # Incrémente l'angle de 10 degrés
-            self.angle += 10
+            self.angle += 360
 
     def is_inside_circle(self, x, y, circle_x, circle_y, radius):
         # Vérifie si un point (x, y) est à l'intérieur d'un cercle de centre (circle_x, circle_y) et de rayon radius
@@ -102,6 +102,9 @@ class App(ctk.CTk):
     def upgrade_speed(self):
         # Améliore la vitesse si possible
         if self.current_speed_index < len(self.speed_levels) - 1:
+            # Soustrait les tours nécessaires du nombre total de tours
+            next_threshold = self.get_next_threshold()
+            self.tours -= next_threshold
             self.current_speed_index += 1
             self.speed = self.speed_levels[self.current_speed_index]
             self.upgrade_button.configure(text=f"Upgrade Speed (Next at {self.get_next_threshold()} tours)", state="disabled")
@@ -110,3 +113,6 @@ if __name__ == "__main__":
     # Crée et lance l'application
     app = App()
     app.mainloop()
+    
+    # Faudra faire en sorte que 
+    # le nombre de tour est correctement afficher
