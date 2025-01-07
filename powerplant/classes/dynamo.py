@@ -33,7 +33,13 @@ class App(ctk.CTk):
         self.outer_circle_radius = 150
         self.inner_circle_radius = 20
         self.angle = 0
-        self.speed = 0  # Variable pour contrôler la vitesse
+        self.speed = 0  # Variable pour contrôler la vitesse initiale
+
+        # Liste des paliers de vitesse
+        self.speed_levels = [0, 1, 2, 3, 4, 5]
+        self.speed_thresholds = [5, 15, 30, 50, 75]  # Paliers progressifs
+        self.current_speed_index = 0
+        self.tours = 0  # Variable pour suivre le nombre de tours
 
         # Création du cercle extérieur
         self.outer_circle = self.canvas.create_oval(100, 100, 300, 300, outline="black")
@@ -44,6 +50,10 @@ class App(ctk.CTk):
 
         # Liaison de l'événement de clic sur le canvas avec la méthode on_outer_circle_click
         self.canvas.bind("<Button-1>", self.on_outer_circle_click)
+
+        # Création d'un bouton pour afficher et appliquer les améliorations de vitesse
+        self.upgrade_button = ctk.CTkButton(self, text=f"Upgrade Speed (Next at {self.get_next_threshold()} tours)", state="disabled", command=self.upgrade_speed)
+        self.upgrade_button.pack(pady=20)
 
         # Démarrage de l'animation
         self.update_animation()
@@ -65,7 +75,12 @@ class App(ctk.CTk):
             # Réinitialise l'angle et augmente la puissance de sortie du dynamo
             self.angle = 0
             self.dynamo.power_output += 1
+            self.tours += 1
             self.label.configure(text=f"Dynamo Power Output: {self.dynamo.generate_power()}")
+
+            # Vérifie si le palier pour l'amélioration de la vitesse est atteint
+            if self.tours >= self.get_next_threshold():
+                self.upgrade_button.configure(state="normal")
 
         # Calcule les nouvelles coordonnées du cercle intérieur
         x = 200 + self.outer_circle_radius * math.cos(math.radians(self.angle))
@@ -77,6 +92,19 @@ class App(ctk.CTk):
 
         # Planifie la prochaine mise à jour de l'animation
         self.after(50, self.update_animation)
+
+    def get_next_threshold(self):
+        # Retourne le prochain palier de tours pour l'amélioration de la vitesse
+        if self.current_speed_index < len(self.speed_thresholds):
+            return self.speed_thresholds[self.current_speed_index]
+        return float('inf')  # Aucun palier supplémentaire
+
+    def upgrade_speed(self):
+        # Améliore la vitesse si possible
+        if self.current_speed_index < len(self.speed_levels) - 1:
+            self.current_speed_index += 1
+            self.speed = self.speed_levels[self.current_speed_index]
+            self.upgrade_button.configure(text=f"Upgrade Speed (Next at {self.get_next_threshold()} tours)", state="disabled")
 
 if __name__ == "__main__":
     # Crée et lance l'application
