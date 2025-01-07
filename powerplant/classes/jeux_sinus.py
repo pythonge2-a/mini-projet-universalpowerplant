@@ -2,6 +2,8 @@ import customtkinter as ctk
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import pygame
+import os
 
 # Fonction pour générer une courbe sinus
 def generate_sinus(amplitude, frequency, x_values):
@@ -10,6 +12,16 @@ def generate_sinus(amplitude, frequency, x_values):
 # Classe principale du jeu
 class SinusMatchingGame:
     def __init__(self, root):
+
+        # Initialiser le module mixer de pygame
+        pygame.mixer.init()
+
+        # Chemin d'accès fichiers
+        sound_victoire_path = os.path.abspath(os.path.join("assets", "fichier_mp3", "success-fanfare-trumpets-6185.mp3"))
+
+        # Charger le fichier audio avec un chemin absolu et une chaîne brute
+        self.sound_victoire = pygame.mixer.Sound(sound_victoire_path)
+
         self.root = root
         self.root.title("Jeu de Correspondance de Sinus")
         
@@ -84,16 +96,16 @@ class SinusMatchingGame:
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
     def update_amplitude(self, value):
-        self.user_amplitude = value
+        index = int(round(float(value)))
+        self.user_amplitude = self.possible_amplitudes[index]
         self.update_user_sinus()
-        # Update amplitude label
-        self.amplitude_label.configure(text=f"Amplitude: {self.user_amplitude:.1f}")
+        self.amplitude_label.configure(text=f"Amplitude: {self.user_amplitude}")
 
     def update_frequency(self, value):
-        self.user_frequency = value
+        index = int(round(float(value)))
+        self.user_frequency = self.possible_frequencies[index]
         self.update_user_sinus()
-        # Update frequency label
-        self.frequency_label.configure(text=f"Fréquence: {self.user_frequency:.1f}")
+        self.frequency_label.configure(text=f"Fréquence: {self.user_frequency}")
 
     def update_user_sinus(self):
         self.user_y_values = generate_sinus(self.user_amplitude, self.user_frequency, self.x_values)
@@ -104,12 +116,29 @@ class SinusMatchingGame:
         diff = np.sum(np.abs(self.target_y_values - self.user_y_values))
         if diff < 0.1:
             self.result_label.configure(text="Bravo ! Vous avez correspondu au sinus cible !", text_color="green")
+            self.end_game()
         else:
             self.result_label.configure(text=f"Encore un peu... Différence: {diff:.2f}", text_color="red")
 
     def on_close(self):
         plt.close(self.fig)  # Fermer la figure Matplotlib
         self.root.destroy()
+
+    def end_game(self):
+        """Fin du jeu."""
+        self.result_label.configure(text="Vous avez réussi ! Félicitations !", text_color="green")
+        
+        # Désactiver tous les widgets
+        self.disable_widgets()
+        
+        self.sound_victoire.play()
+        self.root.after(2000, self.root.quit)
+
+    def disable_widgets(self):
+        """Désactive tous les composants interactifs."""
+        self.amplitude_slider.configure(state="disabled")
+        self.frequency_slider.configure(state="disabled")
+        self.check_button.configure(state="disabled")
 
 # Lancer le jeu
 if __name__ == "__main__":
