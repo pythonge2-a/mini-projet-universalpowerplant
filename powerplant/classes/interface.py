@@ -49,7 +49,7 @@ class PriceFrame(customtkinter.CTkFrame):
         self.money = money
         return self.money
    
-    def update_mk(self):
+    def update_mk(self): #Mise à jour des paramètres de l'interface
         self.price_label.configure(text=f"Avaible Funds : {self.money:.4f} fr")
         self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:.4f} kWh")
  
@@ -82,21 +82,22 @@ class StockFrame(customtkinter.CTkFrame):
 class InvestFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
- 
+        self.nDyson = 0
+        self.nMonkey = 0
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Investissements :")
         self.invest_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
    
         self.monkey_button = customtkinter.CTkButton(self,text="monkey on a bike")
         self.monkey_button.grid(row=1,column=0, padx=5, pady=5, sticky="w")
-        self.monkeyCnt_label = customtkinter.CTkLabel(self, text="--- Monkeys")
+        self.monkeyCnt_label = customtkinter.CTkLabel(self, text="{self.nMonkey} Monkeys")
         self.monkeyCnt_label.grid(row=1,column=1, padx=5,pady=2,sticky="w")
         self.monkeyCost_label =customtkinter.CTkLabel(self,text="Cost : --")
         self.monkeyCost_label.grid(row=2,column=0, padx=5,pady=2,sticky="w")
  
         self.dyson_button = customtkinter.CTkButton(self,text="dyson sphere")
         self.dyson_button.grid(row=1,column=3, padx=5, pady=5, sticky="w")
-        self.dysonCnt_label = customtkinter.CTkLabel(self, text="--- Dyson Spheres")
+        self.dysonCnt_label = customtkinter.CTkLabel(self, text="{self.nDyson} Dyson Spheres")
         self.dysonCnt_label.grid(row=1,column=4, padx=5,pady=2,sticky="w")
         self.dysonCost_label =customtkinter.CTkLabel(self,text="Cost : --")
         self.dysonCost_label.grid(row=2,column=3, padx=5,pady=2,sticky="w")
@@ -160,15 +161,12 @@ class MarketingFrame(customtkinter.CTkFrame):
         if self.selling_price > 0.01:  # Empêche d'avoir un prix négatif
             self.selling_price -= 0.01
         self.update_price_label()
- 
-    def get_selling_price(self):
-        return self.selling_price
    
     def set_stock_max(self, stock):
         self.stock_max = stock
         return self.stock_max
    
-    def update_pstk(self):
+    def update_pstk(self): #Mise à jour des paramètres de l'interface
         self.stockMax_label.configure(text=f"{self.stock_max} /max")
         self.update_price_label()
  

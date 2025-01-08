@@ -24,8 +24,8 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prix_vente = app.my_frame.marketing_frame.selling_price
     stock = app.my_frame.price_frame.kwh_stock
     money = app.my_frame.price_frame.money
-    # Production
 
+    # Production
     production = prod.get_production_totale()
     if stock + production > app.my_frame.marketing_frame.stock_max:
         stock = app.my_frame.marketing_frame.stock_max
@@ -48,12 +48,16 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     app.update_game()
     app.after(100, loop)
 
+
+
+
+
 def main(): #initialisation des paramètres de lancement du jeu
     bank = 100
     kwh_stock = 100
     kwh_stock_max = 2000
 
-    prod.add_moulin()
+    #prod.add_moulin()
     app.my_frame.marketing_frame.set_stock_max(kwh_stock_max)
     app.my_frame.price_frame.set_kwh_stock(kwh_stock)
     app.my_frame.price_frame.set_money(bank)
