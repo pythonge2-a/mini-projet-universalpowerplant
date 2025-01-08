@@ -90,17 +90,21 @@ class InvestFrame(customtkinter.CTkFrame):
    
         self.monkey_button = customtkinter.CTkButton(self,text="monkey on a bike")
         self.monkey_button.grid(row=1,column=0, padx=5, pady=5, sticky="w")
-        self.monkeyCnt_label = customtkinter.CTkLabel(self, text="{self.nMonkey} Monkeys")
+        self.monkeyCnt_label = customtkinter.CTkLabel(self, text="Monkeys")
         self.monkeyCnt_label.grid(row=1,column=1, padx=5,pady=2,sticky="w")
         self.monkeyCost_label =customtkinter.CTkLabel(self,text="Cost : --")
         self.monkeyCost_label.grid(row=2,column=0, padx=5,pady=2,sticky="w")
  
         self.dyson_button = customtkinter.CTkButton(self,text="dyson sphere")
         self.dyson_button.grid(row=1,column=3, padx=5, pady=5, sticky="w")
-        self.dysonCnt_label = customtkinter.CTkLabel(self, text="{self.nDyson} Dyson Spheres")
+        self.dysonCnt_label = customtkinter.CTkLabel(self, text="Dyson Spheres")
         self.dysonCnt_label.grid(row=1,column=4, padx=5,pady=2,sticky="w")
         self.dysonCost_label =customtkinter.CTkLabel(self,text="Cost : --")
         self.dysonCost_label.grid(row=2,column=3, padx=5,pady=2,sticky="w")
+
+    def update_prod(self):
+        self.monkeyCnt_label.configure(text=f"{self.nMonkey} Monkeys")
+        self.dysonCnt_label.configure(text=f"{self.nDyson} Dyson Spheres")
  
  
 class MarketingFrame(customtkinter.CTkFrame):
@@ -149,10 +153,6 @@ class MarketingFrame(customtkinter.CTkFrame):
         self.stockMax_label = customtkinter.CTkLabel(self, text="Stock --- /max")
         self.stockMax_label.grid(row=2,column=0, sticky="w")
    
-    # Mise à jour du prix
-    def update_price_label(self):
-        self.price_label.configure(text=f"{self.selling_price:.2f} fr")
- 
     def increase_price(self):
         self.selling_price += 0.01
         self.update_price_label()
@@ -168,7 +168,8 @@ class MarketingFrame(customtkinter.CTkFrame):
    
     def update_pstk(self): #Mise à jour des paramètres de l'interface
         self.stockMax_label.configure(text=f"{self.stock_max} /max")
-        self.update_price_label()
+        self.price_label.configure(text=f"{self.selling_price:.2f} fr")
+
  
 class MyFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -196,3 +197,4 @@ class App(customtkinter.CTk):
     def update_game(self):
         self.my_frame.marketing_frame.update_pstk()
         self.my_frame.price_frame.update_mk()
+        self.my_frame.invest_frame.update_prod()
