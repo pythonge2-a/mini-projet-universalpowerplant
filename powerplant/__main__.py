@@ -14,7 +14,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     global loopcount
     loopcount += 1
     day = 0
- 
+
     #actualisation des jours (1 jour = 30 secondes)
     if loopcount % 30 == 0: #
         day = loopcount // 30
@@ -24,11 +24,12 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prix_vente = app.my_frame.marketing_frame.selling_price
     stock = app.my_frame.price_frame.kwh_stock
     money = app.my_frame.price_frame.money
+    gain = 0
 
     # Production
     production = prod.get_production_totale()
-    if stock + production > app.my_frame.marketing_frame.stock_max:
-        stock = app.my_frame.marketing_frame.stock_max
+    if stock + production > app.my_frame.price_frame.stock_max:
+        stock = app.my_frame.price_frame.stock_max
     else:
         stock += production
 
@@ -37,13 +38,15 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
         unite_vendue = market.get_unit_sold(demand, stock)
         if unite_vendue > stock:
             unite_vendue = stock
-    
-        money += market.get_user_gain(prix_vente, unite_vendue)
+        gain = market.get_user_gain(prix_vente, unite_vendue)
+        money += gain
         stock -= unite_vendue
 
     # Mise à jour sur l'interface
-        app.my_frame.price_frame.kwh_stock = stock 
-        app.my_frame.price_frame.money = money
+    app.my_frame.price_frame.kwh_stock = stock 
+    app.my_frame.price_frame.money = money
+    app.my_frame.marketing_frame.demand = demand
+    app.my_frame.marketing_frame.gainpers = gain*10 #pour 1 seconde
 
     app.update_game()
     app.after(100, loop)
@@ -55,13 +58,12 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
 def main(): #initialisation des paramètres de lancement du jeu
     bank = 100
     kwh_stock = 100
-    kwh_stock_max = 2000
+    kwh_stock_max = 500
 
-    #prod.add_moulin()
-    app.my_frame.marketing_frame.set_stock_max(kwh_stock_max)
+    prod.add_moulin()
     app.my_frame.price_frame.set_kwh_stock(kwh_stock)
-    app.my_frame.price_frame.set_money(bank)
-
+    #app.my_frame.price_frame.set_money(bank)
+    app.my_frame.price_frame.set_stock_max(kwh_stock_max)
     loop()
     app.mainloop()
 

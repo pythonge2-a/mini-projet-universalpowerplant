@@ -20,7 +20,7 @@ class MainFrame(customtkinter.CTkFrame):
         self.invest_frame.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
        
         self.marketing_frame = MarketingFrame(master=self)
-        self.marketing_frame.grid(row=1, column=1)
+        self.marketing_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
  
 class PriceFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -28,6 +28,7 @@ class PriceFrame(customtkinter.CTkFrame):
  
         self.kwh_stock = 0
         self.money = 0
+        self.stock_max = 0;
  
         # add widgets onto the frame
         self.price_label = customtkinter.CTkLabel(self, text="fr -----",width=300,anchor="w")
@@ -40,7 +41,6 @@ class PriceFrame(customtkinter.CTkFrame):
         self.kwh_label = customtkinter.CTkLabel(self, text=" Unsold Stock : ///// kWh",width=300,anchor="w")
         self.kwh_label.grid(row=1,column=0,padx=10,pady=15,sticky="w")
  
-   
     def set_kwh_stock(self, kwh):
         self.kwh_stock = kwh
         return self.kwh_stock
@@ -48,14 +48,18 @@ class PriceFrame(customtkinter.CTkFrame):
     def set_money(self, money):
         self.money = money
         return self.money
+    
+    def set_stock_max(self, stock_max):
+        self.stock_max = stock_max
+        return self.stock_max
    
     def update_mk(self): #Mise à jour des paramètres de l'interface
         self.price_label.configure(text=f"Avaible Funds : {self.money:.4f} fr")
-        self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:.4f} kWh")
+        self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:.4f} kWh / {self.stock_max} ")
  
     def generate_kwh(self):
         self.kwh_stock+=1
- 
+
 class StockFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -112,13 +116,14 @@ class MarketingFrame(customtkinter.CTkFrame):
         super().__init__(master, **kwargs)
  
         self.selling_price = 0.2 # Prix de base
-        self.stock_max = 0
+        self.demand = 0
+        self.gainpers = 0
  
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Marketing :")
         self.invest_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
  
-        self.price_label = customtkinter.CTkLabel(self, text="1 fr")
+        self.price_label = customtkinter.CTkLabel(self, text="-- fr")
         self.price_label.grid(row=1,column=0,padx=5,pady=5)
  
         self.increasePrice_button = customtkinter.CTkButton(
@@ -145,13 +150,13 @@ class MarketingFrame(customtkinter.CTkFrame):
         self.decreasePrice_button.grid(row=1,column=2)
  
         self.demand_label = customtkinter.CTkLabel(self, text="Demand -- %")
-        self.demand_label.grid(row=2,column=0, sticky="w")
+        self.demand_label.grid(row=2,column=0,sticky="w")
  
         self.gainpers_label = customtkinter.CTkLabel(self, text="Gain/s ---")
-        self.gainpers_label.grid(row=2,column=0, sticky="w")
+        self.gainpers_label.grid(row=3,column=0, sticky="w")
  
-        self.stockMax_label = customtkinter.CTkLabel(self, text="Stock --- /max")
-        self.stockMax_label.grid(row=2,column=0, sticky="w")
+    def update_price_label(self):
+        self.price_label.configure(text=f"{self.selling_price:.2f} fr")
    
     def increase_price(self):
         self.selling_price += 0.01
@@ -161,14 +166,10 @@ class MarketingFrame(customtkinter.CTkFrame):
         if self.selling_price > 0.01:  # Empêche d'avoir un prix négatif
             self.selling_price -= 0.01
         self.update_price_label()
-   
-    def set_stock_max(self, stock):
-        self.stock_max = stock
-        return self.stock_max
-   
+
     def update_pstk(self): #Mise à jour des paramètres de l'interface
-        self.stockMax_label.configure(text=f"{self.stock_max} /max")
-        self.price_label.configure(text=f"{self.selling_price:.2f} fr")
+        self.demand_label.configure(text=f"Demand : {self.demand:.2f} %")
+        self.gainpers_label.configure(text=f"Gain/s : {self.gainpers:.4f}")
 
  
 class MyFrame(customtkinter.CTkFrame):
