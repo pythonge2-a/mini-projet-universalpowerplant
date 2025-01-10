@@ -8,16 +8,14 @@ class production:
 
         # Assets production passive
         self.singe          = 1         # Singe sur un vélo
-        self.hamster        = 5         # Hamster dans une roue
         self.moulin         = 10        # Moulin à eau
-        self.eolienne       = 25        # Éolienne
         self.champignon     = 50        # Ferme de champignons bioluminescents
         self.solaire        = 100       # Panneau solaire
         self.biomasse       = 250       # Ferme de biomasse
         self.nucleaire      = 500       # Centrale nucléaire
         self.fusion         = 1000      # Réacteur de fusion
-        self.anti_matiere   = 5000      # Réacteur à antimatière
-        self.dyson          = 10000     # Sphère de Dyson
+        self.dyson          = 5000      # Sphère de Dyson
+        self.galaxy         = 10000     # Galaxy harveseter
         self.dimension      = 100000    # Centrale dimensionnelle
         self.grandmere      = 1000000   # L'amour de grand-mère
 
