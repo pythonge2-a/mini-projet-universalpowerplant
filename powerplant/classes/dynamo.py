@@ -21,9 +21,12 @@ class App(ctk.CTk):
         # Création d'une instance de Dynamo avec une puissance initiale de 0
         self.dynamo = Dynamo(0)
 
-        # Création d'un label pour afficher la puissance de sortie du dynamo
-        self.label = ctk.CTkLabel(self, text=f"Dynamo Power Output: {self.dynamo.generate_power()}")
-        self.label.pack(pady=20)
+        # Initialisation de la variable tours
+        self.tours = 0
+
+        # Création d'un label pour afficher le nombre de tours
+        self.tours_label = ctk.CTkLabel(self, text=f"Tours: {self.tours}")
+        self.tours_label.pack(pady=20)
 
         # Création d'un canvas pour dessiner les cercles et la ligne
         self.canvas = ctk.CTkCanvas(self, width=400, height=400)
@@ -39,7 +42,6 @@ class App(ctk.CTk):
         self.speed_levels = [0, 1, 2, 3, 4, 5]
         self.speed_thresholds = [5, 10, 20, 35, 55, 80, 110, 145, 185, 230]  # Paliers progressifs
         self.current_speed_index = 0
-        self.tours = 0  # Variable pour suivre le nombre de tours
 
         # Création du cercle extérieur
         self.outer_circle = self.canvas.create_oval(100, 100, 300, 300, outline="black")
@@ -72,11 +74,10 @@ class App(ctk.CTk):
         # Incrémente l'angle en utilisant la variable de vitesse
         self.angle += self.speed
         if self.angle >= 360:
-            # Réinitialise l'angle et augmente la puissance de sortie du dynamo
+            # Réinitialise l'angle et augmente le nombre de tours
             self.angle = 0
-            self.dynamo.power_output += 1
             self.tours += 1
-            self.label.configure(text=f"Dynamo Power Output: {self.dynamo.generate_power()}")
+            self.update_tours_label()
 
             # Vérifie si le palier pour l'amélioration de la vitesse est atteint
             if self.tours >= self.get_next_threshold():
@@ -105,14 +106,16 @@ class App(ctk.CTk):
             # Soustrait les tours nécessaires du nombre total de tours
             next_threshold = self.get_next_threshold()
             self.tours -= next_threshold
+            self.update_tours_label()
             self.current_speed_index += 1
             self.speed = self.speed_levels[self.current_speed_index]
             self.upgrade_button.configure(text=f"Upgrade Speed (Next at {self.get_next_threshold()} tours)", state="disabled")
+
+    def update_tours_label(self):
+        # Met à jour l'affichage du nombre de tours
+        self.tours_label.configure(text=f"Tours: {self.tours}")
 
 if __name__ == "__main__":
     # Crée et lance l'application
     app = App()
     app.mainloop()
-    
-    # Faudra faire en sorte que 
-    # le nombre de tour est correctement afficher
