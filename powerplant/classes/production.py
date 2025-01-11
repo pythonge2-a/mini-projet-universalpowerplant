@@ -20,15 +20,12 @@ class production:
         self.grandmere      = 1000000   # L'amour de grand-mère
 
         self.nSinge         = 0
-        self.nHamster       = 0
         self.nMoulin        = 0
-        self.nEolienne      = 0
         self.nChampignon    = 0
         self.nSolaire       = 0
         self.nBiomasse      = 0
         self.nNucleaire     = 0
         self.nFusion        = 0
-        self.nAntiMatiere   = 0
         self.nDyson         = 0
         self.nDimension     = 0
         self.nGrandmere     = 0
@@ -39,7 +36,7 @@ class production:
         return self.production_active
 
     def update_production_passive(self):
-        self.production_passive = self.nSinge*self.singe + self.nHamster*self.hamster + self.nMoulin*self.moulin + self.nEolienne*self.eolienne + self.nChampignon*self.champignon + self.nSolaire*self.solaire + self.nBiomasse*self.biomasse + self.nNucleaire*self.nucleaire + self.nFusion*self.fusion + self.nAntiMatiere*self.anti_matiere + self.nDyson*self.dyson + self.nDimension*self.dimension + self.nGrandmere*self.grandmere
+        self.production_passive = self.nSinge*self.singe + self.nMoulin*self.moulin + self.nChampignon*self.champignon + self.nSolaire*self.solaire + self.nBiomasse*self.biomasse + self.nNucleaire*self.nucleaire + self.nFusion*self.fusion + self.nDyson*self.dyson + self.nDimension*self.dimension + self.nGrandmere*self.grandmere
         return self.production_passive
     
     def get_production_totale(self):
