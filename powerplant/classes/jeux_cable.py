@@ -1,5 +1,3 @@
-# point à améliorer: stopper le chronomètre lorsqu'on a gagné pour éviter que le message defaite s'affiche
-
 import customtkinter as ctk
 import time
 import random
@@ -96,7 +94,8 @@ class JeuDeCablage:
         self.canvas.tag_bind("start", "<Button-1>", self.start_drag)
         self.canvas.bind("<B1-Motion>", self.drag_line)
         self.canvas.bind("<ButtonRelease-1>", self.stop_drag)
-
+        self.game_over = False  # Nouveau drapeau pour suivre l'état du jeu
+        
         # Timer
         self.update_timer()
 
@@ -122,6 +121,8 @@ class JeuDeCablage:
 
     def start_drag(self, event):
         """Début du tracé depuis un point de départ."""
+        if self.game_over:  # Si le jeu est terminé, arrêter le chronomètre
+            return
         for i, point in enumerate(self.start_points):
             if self.is_inside_circle(event.x, event.y, point, 25):  # Augmenter le rayon pour correspondre aux cercles plus grands
                 self.current_start_point = point
@@ -191,6 +192,8 @@ class JeuDeCablage:
 
     def draw_cable(self, path, color, tag=None):
         """Dessine une courbe lisse représentant le câble."""
+        if self.game_over:  # Si le jeu est terminé, arrêter le chronomètre
+            return
         for i in range(len(path) - 1):
             x1, y1 = path[i]
             x2, y2 = path[i + 1]
@@ -209,16 +212,21 @@ class JeuDeCablage:
 
     def end_game(self):
         """Fin du jeu."""
+        self.game_over = True  # Mettre à jour l'état du jeu
         self.canvas.create_text(400, 300, text="Vous avez réussi !", font=("Arial", 30), fill="green")  # Agrandir la police
         sound_victoire.play()
         self.root.after(2000, self.root.quit)
 
     def update_timer(self):
         """Met à jour le chronomètre du jeu."""
+        if self.game_over:  # Si le jeu est terminé, arrêter le chronomètre
+            return
+
         elapsed_time = time.time() - self.start_time
         remaining_time = self.time_limit - elapsed_time
 
         if remaining_time <= 0:
+            self.game_over = True  # Mettre à jour l'état du jeu
             self.canvas.create_text(400, 300, text="Temps écoulé !", font=("Arial", 30), fill="red")  # Agrandir la police
             sound_defaite.play()
             self.root.after(2000, self.root.quit)  # Fermer après 2 secondes
