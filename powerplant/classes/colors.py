@@ -12,3 +12,8 @@ purple = "#b16286"
 aqua = "#689d6a"
 orange = "#d65d0e"
 gray = "#928374"
+
+#Palette utilisee finalement :
+background_color = "#EAEAEA"
+lightButton_color = "#7ED8FF"
+darkButton_color = "#0078AC"
