@@ -14,7 +14,6 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     global loopcount
     loopcount += 1
     day = 0
-    prod.nSinge = app.my_frame.invest_frame.nSinge
 
     #actualisation des jours (1 jour = 30 secondes)
     if loopcount % 30 == 0: #
@@ -26,6 +25,17 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     stock = app.my_frame.price_frame.kwh_stock
     money = app.my_frame.price_frame.money
     gain = 0
+
+    prod.nSinge = app.my_frame.invest_frame.nSinge
+    prod.nMoulin = app.my_frame.invest_frame.nMoulin
+    prod.nChampignon = app.my_frame.invest_frame.nChampignon
+    prod.nSolaire = app.my_frame.invest_frame.nSolaire
+    prod.nBiomasse = app.my_frame.invest_frame.nBiomasse
+    prod.nNucleaire = app.my_frame.invest_frame.nNucleaire
+    prod.nFusion = app.my_frame.invest_frame.nFusion
+    prod.nDyson = app.my_frame.invest_frame.nDyson
+    prod.nGalaxy = app.my_frame.invest_frame.nGalaxy
+    prod.nDimension = app.my_frame.invest_frame.nDimension
 
     # Production
     production = prod.get_production_totale()
@@ -61,7 +71,6 @@ def main(): #initialisation des paramètres de lancement du jeu
     kwh_stock = 100
     kwh_stock_max = 500
 
-    prod.add_moulin()
     app.my_frame.price_frame.set_kwh_stock(kwh_stock)
     #app.my_frame.price_frame.set_money(bank)
     app.my_frame.price_frame.set_stock_max(kwh_stock_max)
