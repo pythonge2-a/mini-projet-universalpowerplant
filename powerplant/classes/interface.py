@@ -1,6 +1,7 @@
 import customtkinter
 import subprocess
 import os
+import sys
 from . import *
  
 class MainFrame(customtkinter.CTkFrame):
@@ -205,7 +206,7 @@ class InvestFrame(customtkinter.CTkFrame):
 
     # Function to launch the minigame
     def launch_minigame(self):
-        subprocess.Popen(["python3", self.jeux_cable_path])
+        subprocess.Popen([sys.executable, self.jeux_cable_path])
 
     def add_singe(self):
         self.nSinge += 1
