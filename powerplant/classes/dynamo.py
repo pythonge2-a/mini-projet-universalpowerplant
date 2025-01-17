@@ -1,3 +1,6 @@
+#Utiliser pour une futur version où la dynamo sera implémentée 
+# dans l'interface directement
+
 import customtkinter as ctk
 import math
 

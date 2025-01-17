@@ -1,3 +1,5 @@
+# Bug après la deuxième séquence correcte, il n'affiche plus de séquence
+
 import customtkinter as ctk
 import random
 
@@ -30,9 +32,11 @@ class SimonGame(ctk.CTk):
 
         # Création d'un label pour afficher le score
         self.score_label = ctk.CTkLabel(self, text=f"Score: {self.score}", font=("Helvetica", 24))
+        self.score_label.pack(pady=20)
 
         # Création d'un label pour afficher le temps restant
         self.time_label = ctk.CTkLabel(self, text=f"Time left: {self.time_left}s", font=("Helvetica", 24))
+        self.time_label.pack(pady=20)
 
         # Création d'un bouton START pour démarrer le jeu
         self.start_button = ctk.CTkButton(self, text="START", command=self.start_game, font=("Helvetica", 36))
@@ -66,9 +70,13 @@ class SimonGame(ctk.CTk):
         # Démarrage de la première séquence
         self.next_sequence()
 
-    def next_sequence(self):
+    def generate_sequence(self):
         # Génère une nouvelle séquence de 3 couleurs
         self.sequence = [random.choice(self.colors) for _ in range(3)]
+
+    def next_sequence(self):
+        # Génère et affiche une nouvelle séquence
+        self.generate_sequence()
         self.user_sequence = []
         self.show_sequence()
 
@@ -78,13 +86,13 @@ class SimonGame(ctk.CTk):
         # Affiche la séquence de couleurs
         self.canvas.delete("sequence")
         for i, color in enumerate(self.sequence):
-            self.after(i * self.sequence_speed, lambda c=color: self.flash_sequence(c, i))
-        self.after(len(self.sequence) * self.sequence_speed, self.enable_buttons)
+            self.after(i * self.sequence_speed, lambda color=color: self.flash_sequence(color))
+        self.after(len(self.sequence) * self.sequence_speed + 500, self.enable_buttons)
 
-    def flash_sequence(self, color, index):
+    def flash_sequence(self, color):
         # Affiche la couleur dans le rectangle de séquence
         self.canvas.create_text(300, 100, text=color.capitalize(), font=("Helvetica", 24), fill=color, tags="sequence")
-        self.after(500, self.canvas.delete, "sequence")
+        self.after(500, lambda: self.canvas.delete("sequence"))
 
     def flash_button(self, color):
         # Fait clignoter un bouton de couleur
