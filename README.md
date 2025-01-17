@@ -81,14 +81,11 @@ poetry install # installe les dépendances du projet
 poetry run powerplant # lance le programme
 ```
 
-## Gestion des dépendances
-
-Si il y besoin d'installer des dépendances pour la création de classes, vous pouvez utiliser Poetry pour gérer les dépendances du projet. Par exmple, pour installer numpy:
+## Lancement des tests
 ```bash
-poetry add numpy # ajoute numpy au projet
-poetry show # affiche les dépendances incluses du projet
-...
+# A définir par rapport à ce que l'on a réalisé
 ```
+
 ## (Pour les étudiants, à supprimer une fois fait)
 
 ### Comment créer le module
