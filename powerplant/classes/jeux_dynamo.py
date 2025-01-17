@@ -111,5 +111,6 @@ class App(ctk.CTk):
 
 if __name__ == "__main__":
     # Crée et lance l'application
-    app = App()
-    app.mainloop()
+    root = ctk.CTk()
+    game = (root)
+    root.mainloop()
