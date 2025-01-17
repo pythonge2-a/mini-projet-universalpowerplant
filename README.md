@@ -11,7 +11,7 @@
 
 ## Description
 
-### Concept  
+### Concept initial
 Le joueur contrôle une IA programmée pour maximiser la production d'énergie électrique. Le but ultime est de convertir toute la matière de l'univers en énergie, atteignant une omnipotence énergétique.
 
 ### Déroulement du jeu  
@@ -50,7 +50,7 @@ Le joueur contrôle une IA programmée pour maximiser la production d'énergie �
    - Objectif : Appliquer une séquence de couleurs sur des boutons de couleurs.  
    - Récompense : A définir.  
 
----
+
 
 ## Objectifs
 - Concevoir un jeu incrémental captivant basé sur la production et l’optimisation de l’énergie.  
@@ -81,19 +81,55 @@ poetry install # installe les dépendances du projet
 poetry run powerplant # lance le programme
 ```
 
+## Dépendances 
+Si des erreurs surviennent lorsque vous essayez de lancer le jeu, essayer les solutions suivantes.
+
+### Lorsque l'erreur vient de tkinter : 
+```bash
+sudo apt install tk-dev libsqlite3-dev libssl-dev libffi-dev zlib1g-dev
+```
+
+```bash
+cd /usr/src
+sudo wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tar.xz
+sudo tar -xf Python-3.13.0.tar.xz
+cd Python-3.13.0
+```
+
+```bash
+./configure --enable-optimizations
+make -j$(nproc)
+sudo make altinstall
+```
+
+```bash
+python3.13 -m tkinter
+```
+
+Une fenêtre de tkinter devrait s'ouvrir. Si ce n'est pas le cas et que des problèmes de droit d'écritures surviennent, essayez :
+```bash
+sudo chown -R yann:yann /usr/src/Python-3.13.0
+```
+
+```bash
+./configure --enable-optimizations
+make -j$(nproc)
+sudo make altinstall
+```
+
+```bash
+python3.13 -m tkinter
+```
+Une fenêtre de tkinter devrait s'ouvrir.
+
+### Lorsque l'erreur vient de drivers audio (pygame.mixer)
+
+```bash
+sudo apt update
+sudo apt install libsdl2-mixer-2.0-0
+```
+
 ## Lancement des tests
 ```bash
 # A définir par rapport à ce que l'on a réalisé
 ```
-
-## (Pour les étudiants, à supprimer une fois fait)
-
-### Comment créer le module
-
-1. Créer un nouveau répertoire avec le nom du module
-2. Créer un fichier `__init__.py` vide
-3. Créer un fichier `__main__.py` vide
-4. Mettre à jour le fichier `README.md`
-5. Créer un projet Poetry avec `poetry new`
-6. Ajouter les fichiers à Git
-7. Commit et push
