@@ -36,6 +36,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prod.nDyson = app.my_frame.invest_frame.nDyson
     prod.nGalaxy = app.my_frame.invest_frame.nGalaxy
     prod.nDimension = app.my_frame.invest_frame.nDimension
+    prod.nGrandmere = app.my_frame.invest_frame.nGrandmere
 
     # Production
     production = prod.get_production_totale()
@@ -63,12 +64,9 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     app.after(100, loop)
 
 def main(): #initialisation des paramètres de lancement du jeu
-    bank = 100
-    kwh_stock = 100
+
     kwh_stock_max = 500
 
-    app.my_frame.price_frame.set_kwh_stock(kwh_stock)
-    #app.my_frame.price_frame.set_money(bank)
     app.my_frame.price_frame.set_stock_max(kwh_stock_max)
     loop()
     app.mainloop()
