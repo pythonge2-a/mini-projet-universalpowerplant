@@ -34,29 +34,21 @@ Le joueur contrôle une IA programmée pour maximiser la production d'énergie �
 ---
 
 ### Mini-jeux intégrés  
-1. **Optimisation des réseaux électriques**  
-   - Objectif : Réorganiser un réseau pour minimiser les pertes.  
-   - Récompense : Profits temporaires augmentés ou réduction des coûts.  
-
-2. **Réparation de générateurs**  
-   - Objectif : Résoudre un puzzle pour rétablir un générateur en panne.  
-   - Récompense : Réparations gratuites ou boost temporaire de production.  
-
-3. **Marché énergétique**  
-   - Objectif : Acheter/vendre de l’énergie au meilleur moment.  
-   - Récompense : Marges de profit plus élevées.  
-
-4. **Jeu de câblage**  
+1. **Jeu de câblage**  
    - Objectif : Connecter des points pour compléter un circuit.  
-   - Récompense : Réductions sur les générateurs ou infrastructures.  
+   - Récompense : A définir.  
 
-5. **Gestion des surcharges**  
-   - Objectif : Équilibrer les charges pour éviter un blackout.  
-   - Récompense : Bonus d’efficacité temporaire.  
+2. **Jeux sinus**  
+   - Objectif : Faire correspondre un sinus fixe à un autre à régler.  
+   - Récompense : A définir.  
 
-6. **Conception de machines**  
-   - Objectif : Assembler et optimiser une machine.  
-   - Récompense : Réductions ou machines améliorées.  
+3. **Jeux de la dynamo**  
+   - Objectif : Acheter/vendre de l’énergie au meilleur moment.  
+   - Récompense : Augmente la production d'énergie réaliser par rapport au nombre de tour réalisé.  
+
+4. **Jeux du simon**  
+   - Objectif : Appliquer une séquence de couleurs sur des boutons de couleurs.  
+   - Récompense : A définir.  
 
 ---
 
@@ -68,17 +60,25 @@ Le joueur contrôle une IA programmée pour maximiser la production d'énergie �
 
 ## Cahier des charges
 
-- Ceci **doit** être fait
-- Ceci **doit** être fait
-- Ceci **devrait** être fait (si le temps le permet)
-- ...
+### A réaliser (Obligatoirement) :
+- Création d'une interface
+- Création des mini-jeux
+- Création d'une palette de jeux
+- Définir le prix de ventes d'énergie
+- Créer un système de production
+
+
+### A réaliser (si le temps nous le permet) :
+- Implementation d'un bouton de sauvegarde du jeux via Pickle. 
+- Implementation d'un bouton de chargement de la sauvegarde via Pickle
+- Un terminal avec des messages
+- Ajout d'un lore
 
 ## Installation
 
 ```bash
 poetry install # installe les dépendances du projet
 poetry run powerplant # lance le programme
-...
 ```
 
 ## Gestion des dépendances
