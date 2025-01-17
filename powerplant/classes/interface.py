@@ -38,7 +38,7 @@ class PriceFrame(customtkinter.CTkFrame):
         self.price_label = customtkinter.CTkLabel(self, text="fr -----",width=300,anchor="w")
         self.price_label.grid(row=0,column=0,padx=10,pady=2,sticky="w",)
  
-        self.main_button = customtkinter.CTkButton(self, text="Generate energy",command=self.generate_kwh,fg_color=colors.lightButton_color)
+        self.main_button = customtkinter.CTkButton(self, text="Generate energy", text_color="black",command=self.generate_kwh,fg_color=colors.lightButton_color)
         self.main_button.grid(row=2,column=0,padx=10,pady=15)
  
        
@@ -98,22 +98,22 @@ class StockFrame(customtkinter.CTkFrame):
 
         self.magneticCont_label = customtkinter.CTkLabel(self,justify="left", text="10 Magnetic containers\nCAP x nb KWH\nPrice :")
         self.magneticCont_label.grid(row=5,column=0, padx=10,pady=10,sticky="w")
-        self.magneticCont_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.magneticCont_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.magneticCont_button.grid(row=5,column=1, padx=5, pady=0, sticky="w")
 
         self.quantumCore_label = customtkinter.CTkLabel(self,justify="left", text="10 Quantum cores\nCAP x nb KWH\nPrice :")
         self.quantumCore_label.grid(row=6,column=0, padx=10,pady=10,sticky="w")
-        self.quantumCore_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.quantumCore_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.quantumCore_button.grid(row=6,column=1, padx=5, pady=0, sticky="w")
 
         self.cosmicCryst_label = customtkinter.CTkLabel(self,justify="left", text="10 Cosmic crystals\nCAP x nb KWH\nPrice :")
         self.cosmicCryst_label.grid(row=7,column=0, padx=10,pady=10,sticky="w")
-        self.cosmicCryst_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.cosmicCryst_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.cosmicCryst_button.grid(row=7,column=1, padx=5, pady=0, sticky="w")
 
         self.antimatChamber_label = customtkinter.CTkLabel(self,justify="left", text="10 Antimatter chamber\nCAP x nb KWH\nPrice :")
         self.antimatChamber_label.grid(row=8,column=0, padx=10,pady=10,sticky="w")
-        self.antimatChamber_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.antimatChamber_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.antimatChamber_button.grid(row=8,column=1, padx=5, pady=0, sticky="w")
 
 class InvestFrame(customtkinter.CTkFrame):
@@ -161,27 +161,27 @@ class InvestFrame(customtkinter.CTkFrame):
 
         self.fusion_label = customtkinter.CTkLabel(self,justify="left", text="- Fusion reactor\nPrice : --")
         self.fusion_label.grid(row=7,column=0, padx=10,pady=8,sticky="w")
-        self.fusion_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.fusion_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.fusion_button.grid(row=7,column=1, padx=5, pady=0, sticky="w") 
 
         self.dyson_label = customtkinter.CTkLabel(self,justify="left", text="- Dyson spehere\nPrice : --")
         self.dyson_label.grid(row=8,column=0, padx=10,pady=8,sticky="w")
-        self.dyson_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.dyson_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.dyson_button.grid(row=8,column=1, padx=5, pady=0, sticky="w")
 
         self.galaxy_label = customtkinter.CTkLabel(self,justify="left", text="- Galaxy harvester\nPrice : --")
         self.galaxy_label.grid(row=9,column=0, padx=10,pady=8,sticky="w")
-        self.galaxy_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.galaxy_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.galaxy_button.grid(row=9,column=1, padx=5, pady=0, sticky="w")
 
         self.dimensional_label = customtkinter.CTkLabel(self,justify="left", text="- Dimensional generator\nPrice : --")
         self.dimensional_label.grid(row=10,column=0, padx=10,pady=8,sticky="w")
-        self.dimensional_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.dimensional_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.dimensional_button.grid(row=10,column=1, padx=5, pady=0, sticky="w")
 
         self.grandma_label = customtkinter.CTkLabel(self,justify="left", text="- Grandma's Love\nPrice : --")
         self.grandma_label.grid(row=11,column=0, padx=10,pady=8,sticky="w")
-        self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.darkButton_color,hover_color=colors.background_color)
+        self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")
 
 
@@ -268,7 +268,7 @@ class MyFrame(customtkinter.CTkFrame):
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("1280x720")
+        self.geometry("850x850")
         self.grid_rowconfigure(0, weight=1)  # configure grid system
         self.grid_columnconfigure(0, weight=1)
  
