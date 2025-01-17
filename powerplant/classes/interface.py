@@ -1,4 +1,5 @@
 import customtkinter
+import subprocess
 from . import *
  
 class MainFrame(customtkinter.CTkFrame):
@@ -195,8 +196,12 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_grandmere)
         self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")
 
-        self.grandma_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
-        self.grandma_button.grid(row=12,column=1, padx=5, pady=0, sticky="w")
+        self.minigame_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
+        self.minigame_button.grid(row=12,column=1, padx=5, pady=0, sticky="w")
+
+    # Function to launch the minigame
+    def launch_minigame(self):
+        subprocess.Popen(["python3", "powerplant/classes/jeux_cable.py"])
 
     def add_singe(self):
         self.nSinge += 1
