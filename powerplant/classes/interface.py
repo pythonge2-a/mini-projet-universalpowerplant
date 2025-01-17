@@ -125,73 +125,121 @@ class InvestFrame(customtkinter.CTkFrame):
 
         # Number of each investment
         self.nSinge = 0
-        self.nHamster = 0
         self.nMoulin = 0
-        self.
+        self.nChampignon = 0
+        self.nSolaire = 0
+        self.nBiomasse = 0
+        self.nNucleaire = 0
+        self.nFusion = 0
+        self.nDyson = 0
+        self.nGalaxy = 0
+        self.nDimension = 0
+        self.nGrandmere = 0
 
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Investments :", font=("Arial", 16))
         self.invest_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
 
-        self.monkey_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nMonkey} Monkey on a bike\nPrice : --")
+        self.monkey_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nSinge} Monkey on a bike\nPrice : --")
         self.monkey_label.grid(row=1,column=0, padx=10,pady=8,sticky="w")
-        self.monkey_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.monkey_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_singe)
         self.monkey_button.grid(row=1,column=1, padx=5, pady=0, sticky="w")
 
-        self.fusion_label = customtkinter.CTkLabel(self,justify="left", text="- Fusion reactor\nPrice : --")
-        self.fusion_label.grid(row=2,column=0, padx=10,pady=8,sticky="w")
-        self.fusion_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
-        self.fusion_button.grid(row=2,column=1, padx=5, pady=0, sticky="w")
+        self.windmill_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nFusion} Windmill \nPrice : --")
+        self.windmill_label.grid(row=2,column=0, padx=10,pady=8,sticky="w")
+        self.windmill_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_moulin)
+        self.windmill_button.grid(row=2,column=1, padx=5, pady=0, sticky="w")
 
-        self.mushroom_label = customtkinter.CTkLabel(self,justify="left", text="- Bioluminescent Mushroom\nPrice : --")
+        self.mushroom_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nBiomasse} Bioluminescent Mushroom\nPrice : --")
         self.mushroom_label.grid(row=3,column=0, padx=10,pady=8,sticky="w")
-        self.mushroom_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.mushroom_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_champignon)
         self.mushroom_button.grid(row=3,column=1, padx=5, pady=0, sticky="w")
 
-        self.solar_label = customtkinter.CTkLabel(self,justify="left", text="- Solar Panel\nPrice : --")
+        self.solar_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nSolaire} Solar Panel\nPrice : --")
         self.solar_label.grid(row=4,column=0, padx=10,pady=8,sticky="w")
-        self.solar_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.solar_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_solaire)   
         self.solar_button.grid(row=4,column=1, padx=5, pady=0, sticky="w")
         
-        self.biomass_label = customtkinter.CTkLabel(self,justify="left", text="- Biomass farm\nPrice : --")
+        self.biomass_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nBiomasse} Biomass farm\nPrice : --")
         self.biomass_label.grid(row=5,column=0, padx=10,pady=8,sticky="w")
-        self.biomass_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.biomass_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_biomasse)
         self.biomass_button.grid(row=5,column=1, padx=5, pady=0, sticky="w")
 
-        self.nuclear_label = customtkinter.CTkLabel(self,justify="left", text="- Nuclear plant\nPrice : --")
+        self.nuclear_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nNucleaire} Nuclear plant\nPrice : --")
         self.nuclear_label.grid(row=6,column=0, padx=10,pady=8,sticky="w")
-        self.nuclear_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.nuclear_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_nucleaire)
         self.nuclear_button.grid(row=6,column=1, padx=5, pady=0, sticky="w")
 
-        self.fusion_label = customtkinter.CTkLabel(self,justify="left", text="- Fusion reactor\nPrice : --")
+        self.fusion_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nFusion} Fusion reactor\nPrice : --")
         self.fusion_label.grid(row=7,column=0, padx=10,pady=8,sticky="w")
-        self.fusion_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.fusion_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_fusion)
         self.fusion_button.grid(row=7,column=1, padx=5, pady=0, sticky="w") 
 
-        self.dyson_label = customtkinter.CTkLabel(self,justify="left", text="- Dyson spehere\nPrice : --")
+        self.dyson_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nDyson} Dyson spehere\nPrice : --")
         self.dyson_label.grid(row=8,column=0, padx=10,pady=8,sticky="w")
-        self.dyson_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.dyson_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_dyson)
         self.dyson_button.grid(row=8,column=1, padx=5, pady=0, sticky="w")
 
-        self.galaxy_label = customtkinter.CTkLabel(self,justify="left", text="- Galaxy harvester\nPrice : --")
+        self.galaxy_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nGalaxy} Galaxy harvester\nPrice : --")
         self.galaxy_label.grid(row=9,column=0, padx=10,pady=8,sticky="w")
-        self.galaxy_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.galaxy_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_galaxy)
         self.galaxy_button.grid(row=9,column=1, padx=5, pady=0, sticky="w")
 
-        self.dimensional_label = customtkinter.CTkLabel(self,justify="left", text="- Dimensional generator\nPrice : --")
+        self.dimensional_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nDimension} Dimensional generator\nPrice : --")
         self.dimensional_label.grid(row=10,column=0, padx=10,pady=8,sticky="w")
-        self.dimensional_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.dimensional_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_dimension)
         self.dimensional_button.grid(row=10,column=1, padx=5, pady=0, sticky="w")
 
-        self.grandma_label = customtkinter.CTkLabel(self,justify="left", text="- Grandma's Love\nPrice : --")
+        self.grandma_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nGrandmere} Grandma's Love\nPrice : --")
         self.grandma_label.grid(row=11,column=0, padx=10,pady=8,sticky="w")
-        self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_grandmere)
         self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")
 
+    def add_singe(self):
+        self.nSinge += 1
+
+    def add_moulin(self):
+        self.nMoulin += 1
+
+    def add_champignon(self):
+        self.nChampignon += 1
+
+    def add_solaire(self):
+        self.nSolaire += 1
+
+    def add_biomasse(self):
+        self.nBiomasse += 1
+
+    def add_nucleaire(self):
+        self.nNucleaire += 1
+
+    def add_fusion(self):
+        self.nFusion += 1
+
+    def add_dyson(self):
+        self.nDyson += 1
+
+    def add_galaxy(self):
+        self.nGalaxy += 1
+
+    def add_dimension(self):
+        self.nDimension += 1
+    
+    def add_grandmere(self):
+        self.nGrandmere += 1
 
     def update_prod(self):
-        self.monkey_label.configure(text=f"{self.nMonkey} Monkeys on a bike\nPrice : --")
+        self.monkey_label.configure(text=f"{self.nSinge} Monkeys on a bike\nPrice : --")
+        self.windmill_label.configure(text=f"{self.nMoulin} Windmills\nPrice : --")
+        self.mushroom_label.configure(text=f"{self.nChampignon} Bioluminescent Mushrooms\nPrice : --")
+        self.solar_label.configure(text=f"{self.nSolaire} Solar Panels\nPrice : --")
+        self.biomass_label.configure(text=f"{self.nBiomasse} Biomass farms\nPrice : --")
+        self.nuclear_label.configure(text=f"{self.nNucleaire} Nuclear plants\nPrice : --")
+        self.fusion_label.configure(text=f"{self.nFusion} Fusion reactors\nPrice : --")
         self.dyson_label.configure(text=f"{self.nDyson} Dyson speheres\nPrice : --")
+        self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : --")
+        self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : --")
+        self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : --")
  
  
 class MarketingFrame(customtkinter.CTkFrame):

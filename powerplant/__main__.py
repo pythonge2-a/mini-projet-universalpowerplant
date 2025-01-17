@@ -14,6 +14,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     global loopcount
     loopcount += 1
     day = 0
+    prod.nSinge = app.my_frame.invest_frame.nSinge
 
     #actualisation des jours (1 jour = 30 secondes)
     if loopcount % 30 == 0: #
