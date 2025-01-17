@@ -10,13 +10,13 @@ class Dynamo:
     def generate_power(self):
         return self.power_output
 
-class App(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class App:
+    def __init__(self, root):
+        self.root = root
 
         # Configuration de la fenêtre principale
-        self.title("Dynamo Game")
-        self.geometry("500x500")
+        self.root.title("Dynamo Game")
+        self.root.geometry("500x500")
 
         # Création d'une instance de Dynamo avec une puissance initiale de 0
         self.dynamo = Dynamo(0)
@@ -28,15 +28,15 @@ class App(ctk.CTk):
         self.time_left = 15
 
         # Création d'un label pour afficher le nombre de tours
-        self.tours_label = ctk.CTkLabel(self, text=f"Tours: {self.tours}", font=("Helvetica", 24))
+        self.tours_label = ctk.CTkLabel(self.root, text=f"Tours: {self.tours}", font=("Helvetica", 24))
         self.tours_label.pack(pady=20)
 
         # Création d'un label pour afficher le temps restant
-        self.time_label = ctk.CTkLabel(self, text=f"Time left: {self.time_left}s", font=("Helvetica", 24))
+        self.time_label = ctk.CTkLabel(self.root, text=f"Time left: {self.time_left}s", font=("Helvetica", 24))
         self.time_label.pack(pady=20)
 
         # Création d'un canvas pour dessiner les cercles et la ligne
-        self.canvas = ctk.CTkCanvas(self, width=400, height=400)
+        self.canvas = ctk.CTkCanvas(self.root, width=400, height=400)
         self.canvas.pack()
 
         # Initialisation des variables pour les cercles et l'animation
@@ -91,7 +91,7 @@ class App(ctk.CTk):
         if self.time_left > 0:
             self.time_left -= 1
             self.time_label.configure(text=f"Time left: {self.time_left}s")
-            self.after(1000, self.update_timer)
+            self.root.after(1000, self.update_timer)
         else:
             self.end_game()
 
@@ -106,11 +106,11 @@ class App(ctk.CTk):
         self.tours_label.pack_forget()
 
         # Affiche le nombre de tours en grand une fois le temps écoulé
-        final_tours_label = ctk.CTkLabel(self, text=f"Final Tours: {self.tours}", font=("Helvetica", 36))
+        final_tours_label = ctk.CTkLabel(self.root, text=f"Final Tours: {self.tours}", font=("Helvetica", 36))
         final_tours_label.pack(pady=20)
 
 if __name__ == "__main__":
-    # Crée et lance l'application
+    # Lancer le jeu
     root = ctk.CTk()
-    game = (root)
+    game = App(root)
     root.mainloop()
