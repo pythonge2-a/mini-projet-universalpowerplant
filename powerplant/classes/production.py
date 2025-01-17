@@ -27,6 +27,7 @@ class production:
         self.nNucleaire     = 0
         self.nFusion        = 0
         self.nDyson         = 0
+        self.nGalaxy        = 0
         self.nDimension     = 0
         self.nGrandmere     = 0
 
@@ -46,14 +47,8 @@ class production:
     def add_singe(self):
         self.nSinge += 1
 
-    def add_hamster(self):
-        self.nHamster += 1
-
     def add_moulin(self):
         self.nMoulin += 1
-    
-    def add_eolienne(self):
-        self.nEolienne += 1
 
     def add_champignon(self):
         self.nChampignon += 1
@@ -70,11 +65,11 @@ class production:
     def add_fusion(self):
         self.nFusion += 1
 
-    def add_anti_matiere(self):
-        self.nAntiMatiere += 1
-
     def add_dyson(self):
         self.nDyson += 1
+
+    def add_galaxy(self):
+        self.nGalaxy += 1
 
     def add_dimension(self):
         self.nDimension += 1
