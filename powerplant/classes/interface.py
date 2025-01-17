@@ -123,13 +123,17 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grid_columnconfigure(0, weight=2)
         self.grid_columnconfigure(1, weight=1)
 
-        self.nDyson = 0
-        self.nMonkey = 0
+        # Number of each investment
+        self.nSinge = 0
+        self.nHamster = 0
+        self.nMoulin = 0
+        self.
+
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Investments :", font=("Arial", 16))
         self.invest_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
 
-        self.monkey_label = customtkinter.CTkLabel(self,justify="left", text="- Monkey on a bike\nPrice : --")
+        self.monkey_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nMonkey} Monkey on a bike\nPrice : --")
         self.monkey_label.grid(row=1,column=0, padx=10,pady=8,sticky="w")
         self.monkey_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.monkey_button.grid(row=1,column=1, padx=5, pady=0, sticky="w")
