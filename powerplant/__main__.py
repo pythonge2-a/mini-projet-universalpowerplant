@@ -62,10 +62,6 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     app.update_game()
     app.after(100, loop)
 
-
-
-
-
 def main(): #initialisation des paramètres de lancement du jeu
     bank = 100
     kwh_stock = 100
