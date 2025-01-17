@@ -198,15 +198,23 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_grandmere)
         self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")
 
-        self.minigame_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
-        self.minigame_button.grid(row=12,column=1, padx=5, pady=0, sticky="w")
+        self.minigame_cable_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
+        self.minigame_cable_button.grid(row=12,column=1, padx=5, pady=0, sticky="w")
+
+        self.minigame_sinus_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame2)
+        self.minigame_sinus_button.grid(row=12,column=2, padx=5, pady=0, sticky="w")
 
     # Chemin d'accès jeux
     jeux_cable_path = os.path.join("powerplant", "classes", "jeux_cable.py")
+    jeux_sinus_path = os.path.join("powerplant", "classes", "jeux_sinus.py")
 
     # Function to launch the minigame
     def launch_minigame(self):
         subprocess.Popen([sys.executable, self.jeux_cable_path])
+
+    # Function to launch the minigame
+    def launch_minigame2(self):
+        subprocess.Popen([sys.executable, self.jeux_sinus_path])    
 
     def add_singe(self):
         self.nSinge += 1
