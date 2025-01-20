@@ -5,10 +5,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import pygame
 import os
 
-# Fonction pour générer une courbe sinus
-def generate_sinus(amplitude, frequency, x_values):
-    return amplitude * np.sin(2 * np.pi * frequency * x_values)
-
 # Classe principale du jeu
 class SinusMatchingGame:
     def __init__(self, root):
@@ -38,12 +34,12 @@ class SinusMatchingGame:
         # Générer les valeurs restreintes
         self.target_amplitude = np.random.choice(self.possible_amplitudes)
         self.target_frequency = np.random.choice(self.possible_frequencies)
-        self.target_y_values = generate_sinus(self.target_amplitude, self.target_frequency, self.x_values)
+        self.target_y_values = self.generate_sinus(self.target_amplitude, self.target_frequency, self.x_values)
 
         # Initialisation des paramètres utilisateur
         self.user_amplitude = self.possible_amplitudes[0]
         self.user_frequency = self.possible_frequencies[0]
-        self.user_y_values = generate_sinus(self.user_amplitude, self.user_frequency, self.x_values)
+        self.user_y_values = self.generate_sinus(self.user_amplitude, self.user_frequency, self.x_values)
 
         # Création de la figure Matplotlib
         self.fig, self.ax = plt.subplots(figsize=(10, 6))
@@ -95,6 +91,11 @@ class SinusMatchingGame:
         # Gérer la fermeture proprement
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
+        # Fonction pour générer une courbe sinus
+    def generate_sinus(self, amplitude, frequency, x_values):
+        """Génère un sinus en fonction de l'amplitude, la fréquence et x_values."""
+        return amplitude * np.sin(2 * np.pi * frequency * x_values)
+
     def update_amplitude(self, value):
         index = int(round(float(value)))
         self.user_amplitude = self.possible_amplitudes[index]
@@ -108,7 +109,7 @@ class SinusMatchingGame:
         self.frequency_label.configure(text=f"Fréquence: {self.user_frequency}")
 
     def update_user_sinus(self):
-        self.user_y_values = generate_sinus(self.user_amplitude, self.user_frequency, self.x_values)
+        self.user_y_values = self.generate_sinus(self.user_amplitude, self.user_frequency, self.x_values)
         self.user_line.set_ydata(self.user_y_values)
         self.canvas.draw()
 
@@ -145,3 +146,5 @@ if __name__ == "__main__":
     root = ctk.CTk()
     game = SinusMatchingGame(root)
     root.mainloop()
+
+
