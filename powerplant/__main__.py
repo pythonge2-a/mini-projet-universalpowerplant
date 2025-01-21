@@ -25,6 +25,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prix_vente = app.my_frame.marketing_frame.selling_price
     stock = app.my_frame.price_frame.kwh_stock
     money = app.my_frame.price_frame.money
+    gainpers = app.my_frame.marketing_frame.gainpers
     gain = 0
 
     prod.nSinge = app.my_frame.invest_frame.nSinge
@@ -57,13 +58,17 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
         stock += production
 
     # Vente
-    if stock > 0: 
+    if stock > 0 and loopcount % 10 == 0: 
         unite_vendue = market.get_unit_sold(demand, stock)
         if unite_vendue > stock:
             unite_vendue = stock
         gain = market.get_user_gain(prix_vente, unite_vendue)
+        gainpers = gain
         money += gain
         stock -= unite_vendue
+    else:
+        if stock == 0:
+            gainpers = 0
 
     # stockage
     kwh_stock_max = storage.get_stock()
@@ -72,7 +77,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     app.my_frame.price_frame.kwh_stock = stock 
     app.my_frame.price_frame.money = money
     app.my_frame.marketing_frame.demand = demand
-    app.my_frame.marketing_frame.gainpers = gain*10 #pour 1 seconde
+    app.my_frame.marketing_frame.gainpers = gainpers 
     app.my_frame.price_frame.stock_max = kwh_stock_max
 
     app.update_game()
