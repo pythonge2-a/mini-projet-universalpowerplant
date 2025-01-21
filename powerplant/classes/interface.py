@@ -107,7 +107,7 @@ class StockFrame(customtkinter.CTkFrame):
         self.nAntimatter_chamber_price = 2000
         
         # add widgets onto the frame
-        self.stock_label = customtkinter.CTkLabel(self, text="Stockage :", font=("Arial", 16))
+        self.stock_label = customtkinter.CTkLabel(self, text="Storage :", font=("Arial", 16))
         self.stock_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
 
         self.capa_label = customtkinter.CTkLabel(self,justify="left", text="10 Capacitors\nCAP x nb KWH\nPrice :")
@@ -168,6 +168,7 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grid_columnconfigure(0, weight=2)
         self.grid_columnconfigure(1, weight=1)
 
+
         # Number of each investment
         self.nSinge = 0
         self.nMoulin = 0
@@ -180,6 +181,18 @@ class InvestFrame(customtkinter.CTkFrame):
         self.nGalaxy = 0
         self.nDimension = 0
         self.nGrandmere = 0
+
+        self.nSing_price = 5
+        self.nMoulin_price = 15
+        self.nChampignon_price = 20
+        self.nSolaire_price = 50
+        self.nBiomasse_price = 100
+        self.nNucleaire_price = 500
+        self.nFusion_price = 1000
+        self.nDyson_price = 2000
+        self.nGalaxy_price = 5000
+        self.nDimension_price = 10000
+        self.nGrandmere_price = 20000
 
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Investments :", font=("Arial", 16))
@@ -274,17 +287,18 @@ class InvestFrame(customtkinter.CTkFrame):
         self.nGrandmere += 1
 
     def update_prod(self):
-        self.monkey_label.configure(text=f"{self.nSinge} Monkeys on a bike\nPrice : --")
-        self.windmill_label.configure(text=f"{self.nMoulin} Windmills\nPrice : --")
-        self.mushroom_label.configure(text=f"{self.nChampignon} Bioluminescent Mushrooms\nPrice : --")
-        self.solar_label.configure(text=f"{self.nSolaire} Solar Panels\nPrice : --")
-        self.biomass_label.configure(text=f"{self.nBiomasse} Biomass farms\nPrice : --")
-        self.nuclear_label.configure(text=f"{self.nNucleaire} Nuclear plants\nPrice : --")
-        self.fusion_label.configure(text=f"{self.nFusion} Fusion reactors\nPrice : --")
-        self.dyson_label.configure(text=f"{self.nDyson} Dyson speheres\nPrice : --")
-        self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : --")
-        self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : --")
-        self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : --")
+        self.monkey_label.configure(text=f"{self.nSinge} Monkeys on a bike\nPrice : {self.nSing_price}")
+        self.windmill_label.configure(text=f"{self.nMoulin} Windmills\nPrice : {self.nMoulin_price}")
+        self.mushroom_label.configure(text=f"{self.nChampignon} Bioluminescent Mushrooms\nPrice : {self.nChampignon_price}")
+        self.solar_label.configure(text=f"{self.nSolaire} Solar Panels\nPrice : {self.nSolaire_price}")
+        self.biomass_label.configure(text=f"{self.nBiomasse} Biomass farms\nPrice : {self.nBiomasse_price}")
+        self.nuclear_label.configure(text=f"{self.nNucleaire} Nuclear plants\nPrice : {self.nNucleaire_price}")
+        self.fusion_label.configure(text=f"{self.nFusion} Fusion reactors\nPrice : {self.nFusion_price}")
+        self.dyson_label.configure(text=f"{self.nDyson} Dyson spheres\nPrice : {self.nDyson_price}")
+        self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : {self.nGalaxy_price}")
+        self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : {self.nDimension_price}")
+        self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : {self.nGrandmere_price}")
+
  
  
 class MarketingFrame(customtkinter.CTkFrame):
