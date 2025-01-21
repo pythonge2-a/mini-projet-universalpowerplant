@@ -81,10 +81,39 @@ poetry install # installe les dépendances du projet
 poetry run powerplant # lance le programme
 ```
 
-## Dépendances 
+## Problèmes de dépendances et de versions 
 Si des erreurs surviennent lorsque vous essayez de lancer le jeu, essayer les solutions suivantes.
 
-### Lorsque l'erreur vient de tkinter : 
+### Mauvaise version de Python 
+Pour mettre Python à jour vers Python 3.13.0 suivez les instructions suivantes : 
+```bash
+# Update package lists{
+sudo apt update
+
+# Install dependent libraries:
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
+
+# Download Python binary package:
+wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
+
+# Unzip the package:
+tar -xzf Python-3.13.0.tgz
+
+# Execute configure script
+cd Python-3.13.0
+./configure --enable-optimizations
+
+# Build Python 3.13
+make -j 2
+
+# Install Python 3.13
+sudo make install
+
+# Verify the installation
+python3.13
+```
+
+### Lorsque l'erreur vient de tkinter 
 ```bash
 sudo apt install tk-dev libsqlite3-dev libssl-dev libffi-dev zlib1g-dev
 ```
