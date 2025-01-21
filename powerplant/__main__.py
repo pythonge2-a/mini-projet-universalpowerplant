@@ -24,7 +24,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     demand = prix.get_demand(day, app.my_frame.marketing_frame.selling_price) #Mise à jour de la demande
     prix_vente = app.my_frame.marketing_frame.selling_price
     stock = app.my_frame.price_frame.kwh_stock
-    money = app.my_frame.price_frame.money
+    money = app.my_frame.price_frame.get_money()
     gainpers = app.my_frame.marketing_frame.gainpers
     gain = 0
 
@@ -75,7 +75,7 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
 
     # Mise à jour sur l'interface
     app.my_frame.price_frame.kwh_stock = stock 
-    app.my_frame.price_frame.money = money
+    app.my_frame.price_frame.set_money(money)
     app.my_frame.marketing_frame.demand = demand
     app.my_frame.marketing_frame.gainpers = gainpers 
     app.my_frame.price_frame.stock_max = kwh_stock_max

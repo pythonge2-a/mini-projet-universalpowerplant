@@ -32,13 +32,13 @@ class MainFrame(customtkinter.CTkFrame):
         self.minigame_frame.grid(row=1, column=2, padx=5,pady=5, sticky="nw") 
  
 class PriceFrame(customtkinter.CTkFrame):
+    money = 0
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self._bg_color=colors.background_color
         self.grid_columnconfigure(0, weight=1)
  
         self.kwh_stock = 0
-        self.money = 0
         self.stock_max = 0
  
         # add widgets onto the frame
@@ -48,7 +48,6 @@ class PriceFrame(customtkinter.CTkFrame):
         self.main_button = customtkinter.CTkButton(self, text="Generate energy", text_color="black",command=self.generate_kwh,fg_color=colors.lightButton_color)
         self.main_button.grid(row=2,column=0,padx=60,pady=15)
  
-       
         self.kwh_label = customtkinter.CTkLabel(self, text=" Unsold Stock : ///// kWh",width=300,anchor="w")
         self.kwh_label.grid(row=1,column=0,padx=10,pady=2,sticky="w")
  
@@ -56,16 +55,18 @@ class PriceFrame(customtkinter.CTkFrame):
         self.kwh_stock = kwh
         return self.kwh_stock
    
-    def set_money(self, money):
-        self.money = money
-        return self.money
+    def get_money(self):
+        return self.__class__.money
+    
+    def set_money(self,money):
+        self.__class__.money = money
     
     def set_stock_max(self, stock_max):
         self.stock_max = stock_max
         return self.stock_max
    
     def update_mk(self): #Mise à jour des paramètres de l'interface
-        self.price_label.configure(text=f"Avaible Funds : {self.money:.4f} fr")
+        self.price_label.configure(text=f"Avaible Funds : {PriceFrame.money:.4f} fr")
         self.kwh_label.configure(text=f"Unsold Stock : {self.kwh_stock:.4f} kWh / {self.stock_max} ")
  
     def generate_kwh(self):
@@ -112,53 +113,96 @@ class StockFrame(customtkinter.CTkFrame):
 
         self.capa_label = customtkinter.CTkLabel(self,justify="left", text="10 Capacitors\nCAP x nb KWH\nPrice :")
         self.capa_label.grid(row=1,column=0, padx=10,pady=10,sticky="w")
-        self.capa_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.capa_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_capacitor)
         self.capa_button.grid(row=1,column=1, padx=5, pady=0, sticky="w")
 
         self.battAA_label = customtkinter.CTkLabel(self,justify="left", text="10 AA Batteries\nCAP x nb KWH\nPrice :")
         self.battAA_label.grid(row=2,column=0, padx=10,pady=10,sticky="w")
-        self.battAA_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.battAA_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_batterie)
         self.battAA_button.grid(row=2,column=1, padx=5, pady=0, sticky="w")
 
         self.graphene_label = customtkinter.CTkLabel(self,justify="left", text="10 Graphene Batteries\nCAP x nb KWH\nPrice :")
         self.graphene_label.grid(row=3,column=0, padx=10,pady=10,sticky="w")
-        self.graphene_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.graphene_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_graphene_batterie)
         self.graphene_button.grid(row=3,column=1, padx=5, pady=0, sticky="w")
 
         self.biocap_label = customtkinter.CTkLabel(self,justify="left", text="10 Biocapacitors\nCAP x nb KWH\nPrice :")
         self.biocap_label.grid(row=4,column=0, padx=10,pady=10,sticky="w")
-        self.biocap_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.biocap_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_biocapacitor)
         self.biocap_button.grid(row=4,column=1, padx=5, pady=0, sticky="w")
 
         self.magneticCont_label = customtkinter.CTkLabel(self,justify="left", text="10 Magnetic containers\nCAP x nb KWH\nPrice :")
         self.magneticCont_label.grid(row=5,column=0, padx=10,pady=10,sticky="w")
-        self.magneticCont_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.magneticCont_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_magnetic_container)
         self.magneticCont_button.grid(row=5,column=1, padx=5, pady=0, sticky="w")
 
         self.quantumCore_label = customtkinter.CTkLabel(self,justify="left", text="10 Quantum cores\nCAP x nb KWH\nPrice :")
         self.quantumCore_label.grid(row=6,column=0, padx=10,pady=10,sticky="w")
-        self.quantumCore_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.quantumCore_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_quantum_core)
         self.quantumCore_button.grid(row=6,column=1, padx=5, pady=0, sticky="w")
 
         self.cosmicCryst_label = customtkinter.CTkLabel(self,justify="left", text="10 Cosmic crystals\nCAP x nb KWH\nPrice :")
         self.cosmicCryst_label.grid(row=7,column=0, padx=10,pady=10,sticky="w")
-        self.cosmicCryst_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.cosmicCryst_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_cosmic_crystal)
         self.cosmicCryst_button.grid(row=7,column=1, padx=5, pady=0, sticky="w")
 
         self.antimatChamber_label = customtkinter.CTkLabel(self,justify="left", text="10 Antimatter chamber\nCAP x nb KWH\nPrice :")
         self.antimatChamber_label.grid(row=8,column=0, padx=10,pady=10,sticky="w")
-        self.antimatChamber_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
+        self.antimatChamber_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color,command=self.add_antimatter_chamber)
         self.antimatChamber_button.grid(row=8,column=1, padx=5, pady=0, sticky="w")
+    
+    def add_capacitor(self):
+        if PriceFrame.money >= self.nCapacitor_price:
+            self.nCapacitor += 1
+            PriceFrame.money -= self.nCapacitor_price
+            self.nCapacitor_price *= 1.2
+    def add_batterie(self):
+        if PriceFrame.money >= self.nBatterie_price:
+            self.nBatterie += 1
+            PriceFrame.money -= self.nBatterie_price
+            self.nBatterie_price *= 1.2
+    def add_graphene_batterie(self):
+        if PriceFrame.money >= self.nGraphene_batterie_price:
+            self.nGraphene_batterie += 1
+            PriceFrame.money -= self.nGraphene_batterie_price
+            self.nGraphene_batterie_price *= 1.2
+    def add_biocapacitor(self):
+        if PriceFrame.money >= self.nBiocapacitor_price:
+            self.nBiocapacitor += 1
+            PriceFrame.money -= self.nBiocapacitor_price
+            self.nBiocapacitor_price *= 1.2
+    def add_magnetic_container(self):
+        if PriceFrame.money >= self.nMagnetic_container_price:
+            self.nMagnetic_container += 1
+            PriceFrame.money -= self.nMagnetic_container_price
+            self.nMagnetic_container_price *= 1.2
+    def add_quantum_core(self):
+        if PriceFrame.money >= self.nQuantum_core_price:
+            self.nQuantum_core += 1
+            PriceFrame.money -= self.nQuantum_core_price
+            self.nQuantum_core_price *= 1.2
+    def add_cosmic_crystal(self):
+        if PriceFrame.money >= self.nCosmic_crystal_price:
+            self.nCosmic_crystal += 1
+            PriceFrame.money -= self.nCosmic_crystal_price
+            self.nCosmic_crystal_price *= 1.2
+    def add_antimatter_chamber(self):
+        if PriceFrame.money >= self.nAntimatter_chamber_price:
+            self.nAntimatter_chamber += 1
+            PriceFrame.money -= self.nAntimatter_chamber_price
+            self.nAntimatter_chamber_price *= 1.2
+    
 
     def update_storage_label(self): #Mise à jour des paramètres de l'interface
-        self.capa_label.configure(text=f"{self.nCapacitor} Capacitors\n{self.nCapacitor * self.capacitor_capacity} KWH\nPrice : {self.nCapacitor_price}")
-        self.battAA_label.configure(text=f"{self.nBatterie} AA Batteries\n{self.nBatterie * self.batterie_capacity} KWH\nPrice : {self.nBatterie_price}")
-        self.graphene_label.configure(text=f"{self.nGraphene_batterie} Graphene Batteries\n{self.nGraphene_batterie * self.graphene_batterie_capacity} KWH\nPrice : {self.nGraphene_batterie_price}")
-        self.biocap_label.configure(text=f"{self.nBiocapacitor} Biocapacitors\n{self.nBiocapacitor * self.biocapacitor_capacity} KWH\nPrice : {self.nBiocapacitor_price}")
-        self.magneticCont_label.configure(text=f"{self.nMagnetic_container} Magnetic containers\n{self.nMagnetic_container * self.magnetic_container_capacity} KWH\nPrice : {self.nMagnetic_container_price}")
-        self.quantumCore_label.configure(text=f"{self.nQuantum_core} Quantum cores\n{self.nQuantum_core * self.quantum_core_capacity} KWH\nPrice : {self.nQuantum_core_price}")
-        self.cosmicCryst_label.configure(text=f"{self.nCosmic_crystal} Cosmic crystals\n{self.nCosmic_crystal * self.cosmic_crystal_capacity} KWH\nPrice : {self.nCosmic_crystal_price}")
-        self.antimatChamber_label.configure(text=f"{self.nAntimatter_chamber} Antimatter chamber\n{self.nAntimatter_chamber * self.antimatter_chamber_capacity} KWH\nPrice : {self.nAntimatter_chamber_price}")
+        self.capa_label.configure(text=f"{self.nCapacitor} Capacitors\n{self.nCapacitor * self.capacitor_capacity} KWH\nPrice : {self.nCapacitor_price:.4f}")
+        self.battAA_label.configure(text=f"{self.nBatterie} AA Batteries\n{self.nBatterie * self.batterie_capacity} KWH\nPrice : {self.nBatterie_price:.4f}")
+        self.graphene_label.configure(text=f"{self.nGraphene_batterie} Graphene Batteries\n{self.nGraphene_batterie * self.graphene_batterie_capacity} KWH\nPrice : {self.nGraphene_batterie_price:.4f}")
+        self.biocap_label.configure(text=f"{self.nBiocapacitor} Biocapacitors\n{self.nBiocapacitor * self.biocapacitor_capacity} KWH\nPrice : {self.nBiocapacitor_price:.4f}")
+        self.magneticCont_label.configure(text=f"{self.nMagnetic_container} Magnetic containers\n{self.nMagnetic_container * self.magnetic_container_capacity} KWH\nPrice : {self.nMagnetic_container_price:.4f}")
+        self.quantumCore_label.configure(text=f"{self.nQuantum_core} Quantum cores\n{self.nQuantum_core * self.quantum_core_capacity} KWH\nPrice : {self.nQuantum_core_price:.4f}")
+        self.cosmicCryst_label.configure(text=f"{self.nCosmic_crystal} Cosmic crystals\n{self.nCosmic_crystal * self.cosmic_crystal_capacity} KWH\nPrice : {self.nCosmic_crystal_price:.4f}")
+        self.antimatChamber_label.configure(text=f"{self.nAntimatter_chamber} Antimatter chamber\n{self.nAntimatter_chamber * self.antimatter_chamber_capacity} KWH\nPrice : {self.nAntimatter_chamber_price:.4f}")
+
 
 
 class InvestFrame(customtkinter.CTkFrame):
@@ -254,50 +298,83 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")   
 
     def add_singe(self):
-        self.nSinge += 1
+        if PriceFrame.money >= self.nSing_price:
+            self.nSinge += 1
+            PriceFrame.money -= self.nSing_price
+            self.nSing_price *= 1.2
 
     def add_moulin(self):
-        self.nMoulin += 1
+        if PriceFrame.money >= self.nMoulin_price:
+            self.nMoulin += 1
+            PriceFrame.money -= self.nMoulin_price
+            self.nMoulin_price *= 1.2
 
     def add_champignon(self):
-        self.nChampignon += 1
+        if PriceFrame.money >= self.nChampignon_price:
+            self.nChampignon += 1
+            PriceFrame.money -= self.nChampignon_price
+            self.nChampignon_price *= 1.2
 
     def add_solaire(self):
-        self.nSolaire += 1
+        if PriceFrame.money >= self.nSolaire_price:
+            self.nSolaire += 1
+            PriceFrame.money -= self.nSolaire_price
+            self.nSolaire_price *= 1.2
 
     def add_biomasse(self):
-        self.nBiomasse += 1
+        if PriceFrame.money >= self.nBiomasse_price:
+            self.nBiomasse += 1
+            PriceFrame.money -= self.nBiomasse_price
+            self.nBiomasse_price *= 1.2
 
     def add_nucleaire(self):
-        self.nNucleaire += 1
+        if PriceFrame.money >= self.nNucleaire_price:
+            self.nNucleaire += 1
+            PriceFrame.money -= self.nNucleaire_price
+            self.nNucleaire_price *= 1.2
 
     def add_fusion(self):
-        self.nFusion += 1
+        if PriceFrame.money >= self.nFusion_price:
+            self.nFusion += 1
+            PriceFrame.money -= self.nFusion_price
+            self.nFusion_price *= 1.2
 
     def add_dyson(self):
-        self.nDyson += 1
+        if PriceFrame.money >= self.nDyson_price:
+            self.nDyson += 1
+            PriceFrame.money -= self.nDyson_price
+            self.nDyson_price *= 1.2
 
     def add_galaxy(self):
-        self.nGalaxy += 1
+        if PriceFrame.money >= self.nGalaxy_price:
+            self.nGalaxy += 1
+            PriceFrame.money -= self.nGalaxy_price
+            self.nGalaxy_price *= 1.2
 
     def add_dimension(self):
-        self.nDimension += 1
+        if PriceFrame.money >= self.nDimension_price:
+            self.nDimension += 1
+            PriceFrame.money -= self.nDimension_price
+            self.nDimension_price *= 1.2
     
     def add_grandmere(self):
-        self.nGrandmere += 1
+        if PriceFrame.money >= self.nGrandmere_price:
+            self.nGrandmere += 1
+            PriceFrame.money -= self.nGrandmere_price
+            self.nGrandmere_price *= 1.2
 
     def update_prod(self):
-        self.monkey_label.configure(text=f"{self.nSinge} Monkeys on a bike\nPrice : {self.nSing_price}")
-        self.windmill_label.configure(text=f"{self.nMoulin} Windmills\nPrice : {self.nMoulin_price}")
-        self.mushroom_label.configure(text=f"{self.nChampignon} Bioluminescent Mushrooms\nPrice : {self.nChampignon_price}")
-        self.solar_label.configure(text=f"{self.nSolaire} Solar Panels\nPrice : {self.nSolaire_price}")
-        self.biomass_label.configure(text=f"{self.nBiomasse} Biomass farms\nPrice : {self.nBiomasse_price}")
-        self.nuclear_label.configure(text=f"{self.nNucleaire} Nuclear plants\nPrice : {self.nNucleaire_price}")
-        self.fusion_label.configure(text=f"{self.nFusion} Fusion reactors\nPrice : {self.nFusion_price}")
-        self.dyson_label.configure(text=f"{self.nDyson} Dyson spheres\nPrice : {self.nDyson_price}")
-        self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : {self.nGalaxy_price}")
-        self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : {self.nDimension_price}")
-        self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : {self.nGrandmere_price}")
+        self.monkey_label.configure(text=f"{self.nSinge} Monkeys on a bike\nPrice : {self.nSing_price:.4f}")
+        self.windmill_label.configure(text=f"{self.nMoulin} Windmills\nPrice : {self.nMoulin_price:.4f}")
+        self.mushroom_label.configure(text=f"{self.nChampignon} Bioluminescent Mushrooms\nPrice : {self.nChampignon_price:.4f}")
+        self.solar_label.configure(text=f"{self.nSolaire} Solar Panels\nPrice : {self.nSolaire_price:.4f}")
+        self.biomass_label.configure(text=f"{self.nBiomasse} Biomass farms\nPrice : {self.nBiomasse_price:.4f}")
+        self.nuclear_label.configure(text=f"{self.nNucleaire} Nuclear plants\nPrice : {self.nNucleaire_price:.4f}")
+        self.fusion_label.configure(text=f"{self.nFusion} Fusion reactors\nPrice : {self.nFusion_price:.4f}")
+        self.dyson_label.configure(text=f"{self.nDyson} Dyson spheres\nPrice : {self.nDyson_price:.4f}")
+        self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : {self.nGalaxy_price:.4f}")
+        self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : {self.nDimension_price:.4f}")
+        self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : {self.nGrandmere_price:.4f}")
 
  
  
