@@ -8,6 +8,7 @@ kwhCSV_path = os.path.join("assets", "kwh_price.csv")
 prix = KwhPrice(kwhCSV_path) # Création de l'objet prix
 market = marketing() # Création de l'objet marketing
 prod = production() # Création de l'objet production
+storage = Storage() # Création de l'objet storage
 
 def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
 
@@ -38,6 +39,16 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     prod.nDimension = app.my_frame.invest_frame.nDimension
     prod.nGrandmere = app.my_frame.invest_frame.nGrandmere
 
+    storage.n_capacitor = app.my_frame.stock_frame.nCapacitor
+    storage.n_batterie = app.my_frame.stock_frame.nBatterie
+    storage.n_graphene_batterie = app.my_frame.stock_frame.nGraphene_batterie
+    storage.n_biocapacitor = app.my_frame.stock_frame.nBiocapacitor
+    storage.n_magnetic_container = app.my_frame.stock_frame.nMagnetic_container
+    storage.n_quantum_core = app.my_frame.stock_frame.nQuantum_core
+    storage.n_cosmic_crystal = app.my_frame.stock_frame.nCosmic_crystal
+    storage.n_antimatter_chamber = app.my_frame.stock_frame.nAntimatter_chamber
+    
+
     # Production
     production = prod.get_production_totale()
     if stock + production > app.my_frame.price_frame.stock_max:
@@ -54,11 +65,16 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
         money += gain
         stock -= unite_vendue
 
+    # stockage
+    kwh_stock_max = storage.get_stock()
+
     # Mise à jour sur l'interface
     app.my_frame.price_frame.kwh_stock = stock 
     app.my_frame.price_frame.money = money
     app.my_frame.marketing_frame.demand = demand
     app.my_frame.marketing_frame.gainpers = gain*10 #pour 1 seconde
+    app.my_frame.price_frame.stock_max = kwh_stock_max
+
 
     app.update_game()
     app.after(100, loop)

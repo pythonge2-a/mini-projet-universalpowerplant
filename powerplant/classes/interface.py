@@ -75,6 +75,33 @@ class StockFrame(customtkinter.CTkFrame):
         self.grid_columnconfigure(0, weight=2)
         self.grid_columnconfigure(1, weight=1)
 
+        self.nCapacitor = 0
+        self.nBatterie = 0
+        self.nGraphene_batterie = 0
+        self.nBiocapacitor = 0
+        self.nMagnetic_container = 0
+        self.nQuantum_core = 0
+        self.nCosmic_crystal = 0
+        self.nAntimatter_chamber = 0
+
+        self.capacitor_capacity = 10
+        self.batterie_capacity = 50
+        self.graphene_batterie_capacity = 100
+        self.biocapacitor_capacity = 250
+        self.magnetic_container_capacity = 500
+        self.quantum_core_capacity = 1000
+        self.cosmic_crystal_capacity = 2000
+        self.antimatter_chamber_capacity = 5000
+
+        self.nCapacitor_price = 5
+        self.nBatterie_price = 15
+        self.nGraphene_batterie_price = 20
+        self.nBiocapacitor_price = 50
+        self.nMagnetic_container_price = 100
+        self.nQuantum_core_price = 500
+        self.nCosmic_crystal_price = 1000
+        self.nAntimatter_chamber_price = 2000
+        
         # add widgets onto the frame
         self.stock_label = customtkinter.CTkLabel(self, text="Stockage :", font=("Arial", 16))
         self.stock_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
@@ -118,6 +145,17 @@ class StockFrame(customtkinter.CTkFrame):
         self.antimatChamber_label.grid(row=8,column=0, padx=10,pady=10,sticky="w")
         self.antimatChamber_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color)
         self.antimatChamber_button.grid(row=8,column=1, padx=5, pady=0, sticky="w")
+
+    def update_storage_label(self): #Mise à jour des paramètres de l'interface
+        self.capa_label.configure(text=f"{self.nCapacitor} Capacitors\n{self.nCapacitor * self.capacitor_capacity} KWH\nPrice : {self.nCapacitor_price}")
+        self.battAA_label.configure(text=f"{self.nBatterie} AA Batteries\n{self.nBatterie * self.batterie_capacity} KWH\nPrice : {self.nBatterie_price}")
+        self.graphene_label.configure(text=f"{self.nGraphene_batterie} Graphene Batteries\n{self.nGraphene_batterie * self.graphene_batterie_capacity} KWH\nPrice : {self.nGraphene_batterie_price}")
+        self.biocap_label.configure(text=f"{self.nBiocapacitor} Biocapacitors\n{self.nBiocapacitor * self.biocapacitor_capacity} KWH\nPrice : {self.nBiocapacitor_price}")
+        self.magneticCont_label.configure(text=f"{self.nMagnetic_container} Magnetic containers\n{self.nMagnetic_container * self.magnetic_container_capacity} KWH\nPrice : {self.nMagnetic_container_price}")
+        self.quantumCore_label.configure(text=f"{self.nQuantum_core} Quantum cores\n{self.nQuantum_core * self.quantum_core_capacity} KWH\nPrice : {self.nQuantum_core_price}")
+        self.cosmicCryst_label.configure(text=f"{self.nCosmic_crystal} Cosmic crystals\n{self.nCosmic_crystal * self.cosmic_crystal_capacity} KWH\nPrice : {self.nCosmic_crystal_price}")
+        self.antimatChamber_label.configure(text=f"{self.nAntimatter_chamber} Antimatter chamber\n{self.nAntimatter_chamber * self.antimatter_chamber_capacity} KWH\nPrice : {self.nAntimatter_chamber_price}")
+
 
 class InvestFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -352,3 +390,4 @@ class App(customtkinter.CTk):
         self.my_frame.marketing_frame.update_pstk()
         self.my_frame.price_frame.update_mk()
         self.my_frame.invest_frame.update_prod()
+        self.my_frame.stock_frame.update_storage_label()
