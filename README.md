@@ -160,5 +160,5 @@ sudo apt install libsdl2-mixer-2.0-0
 
 ## Lancement des tests
 ```bash
-# A définir par rapport à ce que l'on a réalisé
+poetry run pytest
 ```
