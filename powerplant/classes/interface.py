@@ -106,7 +106,7 @@ class StockFrame(customtkinter.CTkFrame):
         self.nAntimatter_chamber_price = 2000
         
         # add widgets onto the frame
-        self.stock_label = customtkinter.CTkLabel(self, text="Stockage :", font=("Arial", 16))
+        self.stock_label = customtkinter.CTkLabel(self, text="Storage :", font=("Arial", 16))
         self.stock_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
 
         self.capa_label = customtkinter.CTkLabel(self,justify="left", text="10 Capacitors\nCAP x nb KWH\nPrice :")
@@ -166,6 +166,7 @@ class InvestFrame(customtkinter.CTkFrame):
         self._bg_color=colors.background_color
         self.grid_columnconfigure(0, weight=2)
         self.grid_columnconfigure(1, weight=1)
+
 
         # Number of each investment
         self.nSinge = 0
@@ -296,7 +297,7 @@ class InvestFrame(customtkinter.CTkFrame):
         self.galaxy_label.configure(text=f"{self.nGalaxy} Galaxy harvesters\nPrice : {self.nGalaxy_price}")
         self.dimensional_label.configure(text=f"{self.nDimension} Dimensional generators\nPrice : {self.nDimension_price}")
         self.grandma_label.configure(text=f"{self.nGrandmere} Grandma's Love\nPrice : {self.nGrandmere_price}")
-        
+
  
  
 class MarketingFrame(customtkinter.CTkFrame):

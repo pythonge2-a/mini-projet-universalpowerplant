@@ -75,7 +75,6 @@ def loop(): #boucle du jeu , actualise les paramètres du jeu toute les secondes
     app.my_frame.marketing_frame.gainpers = gain*10 #pour 1 seconde
     app.my_frame.price_frame.stock_max = kwh_stock_max
 
-
     app.update_game()
     app.after(100, loop)
 
