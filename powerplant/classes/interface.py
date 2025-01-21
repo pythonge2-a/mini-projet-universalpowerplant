@@ -35,6 +35,7 @@ class PriceFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self._bg_color=colors.background_color
+        self.grid_columnconfigure(0, weight=1)
  
         self.kwh_stock = 0
         self.money = 0
@@ -45,7 +46,7 @@ class PriceFrame(customtkinter.CTkFrame):
         self.price_label.grid(row=0,column=0,padx=10,pady=2,sticky="w",)
  
         self.main_button = customtkinter.CTkButton(self, text="Generate energy", text_color="black",command=self.generate_kwh,fg_color=colors.lightButton_color)
-        self.main_button.grid(row=2,column=0,padx=10,pady=15)
+        self.main_button.grid(row=2,column=0,padx=60,pady=15)
  
        
         self.kwh_label = customtkinter.CTkLabel(self, text=" Unsold Stock : ///// kWh",width=300,anchor="w")
@@ -356,13 +357,13 @@ class MiniGameFrame(customtkinter.CTkFrame):
         self.minigame_label = customtkinter.CTkLabel(self, text="Minigames :", font=("Arial", 16))
         self.minigame_label.grid(row=0,column=0, padx=5, pady=25, sticky="nw")
         self.minigame_sinus_button = customtkinter.CTkButton(self,text="Match the Sine",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame2)
-        self.minigame_sinus_button.grid(row=3,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_sinus_button.grid(row=3,column=0, padx=5, pady=50)
         self.minigame_dynamo_button = customtkinter.CTkButton(self,text="Turn the dynamo",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame3)
-        self.minigame_dynamo_button.grid(row=4,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_dynamo_button.grid(row=4,column=0, padx=5, pady=50)
         self.minigame_cable_button = customtkinter.CTkButton(self,text="Connect the cables",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
-        self.minigame_cable_button.grid(row=5,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_cable_button.grid(row=5,column=0, padx=5, pady=50)
         self.minigame_simon_button = customtkinter.CTkButton(self,text="Insane Simon game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame4)
-        self.minigame_simon_button.grid(row=6,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_simon_button.grid(row=6,column=0, padx=5, pady=50)
 
 
     # Chemin d'accès jeux
