@@ -13,20 +13,23 @@ class MainFrame(customtkinter.CTkFrame):
         self.grid_rowconfigure(0, weight=1)  # One row
         self.grid_rowconfigure(1, weight=3)  # One row
         #self.grid_columnconfigure(0, weight=1)  # Three columns
-        self.grid_columnconfigure((0,1,2,3), weight=1)  # Three columns
+        self.grid_columnconfigure((0,1,2,3,4), weight=1)
  
         # add widgets onto the frame
         self.price_frame = PriceFrame(master=self)
-        self.price_frame.grid(row=0, column=0, padx=5, pady=5, sticky="w")
+        self.price_frame.grid(row=0, column=0, padx=5, pady=5, sticky="nw")
  
         self.stock_frame = StockFrame(master=self)
-        self.stock_frame.grid(row=1, column=1, padx=5, pady=5, sticky="w")
+        self.stock_frame.grid(row=1, column=1, padx=5, pady=5, sticky="nw")
 
         self.marketing_frame = MarketingFrame(master=self)
-        self.marketing_frame.grid(row=0, column=1, padx=5, pady=5, sticky="w")
+        self.marketing_frame.grid(row=0, column=1, padx=5, pady=5, sticky="nw")
  
         self.invest_frame = InvestFrame(master=self)
-        self.invest_frame.grid(row=1, column=0, padx=5, pady=5, sticky="w")      
+        self.invest_frame.grid(row=1, column=0, padx=5, pady=5, sticky="nw") 
+
+        self.minigame_frame = MiniGameFrame(master=self)
+        self.minigame_frame.grid(row=1, column=2, padx=5,pady=5, sticky="nw") 
  
 class PriceFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -141,7 +144,7 @@ class InvestFrame(customtkinter.CTkFrame):
 
         # add widgets onto the frame
         self.invest_label = customtkinter.CTkLabel(self, text="Investments :", font=("Arial", 16))
-        self.invest_label.grid(row=0,column=0, padx=10, pady=15, sticky="w")
+        self.invest_label.grid(row=0,column=0, padx=10, pady=25, sticky="w")
 
         self.monkey_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nSinge} Monkey on a bike\nPrice : --")
         self.monkey_label.grid(row=1,column=0, padx=10,pady=8,sticky="w")
@@ -196,25 +199,7 @@ class InvestFrame(customtkinter.CTkFrame):
         self.grandma_label = customtkinter.CTkLabel(self,justify="left", text=f"{self.nGrandmere} Grandma's Love\nPrice : --")
         self.grandma_label.grid(row=11,column=0, padx=10,pady=8,sticky="w")
         self.grandma_button = customtkinter.CTkButton(self,text="Buy",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.add_grandmere)
-        self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")
-
-        self.minigame_cable_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
-        self.minigame_cable_button.grid(row=12,column=1, padx=5, pady=0, sticky="w")
-
-        self.minigame_sinus_button = customtkinter.CTkButton(self,text="Mini_game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame2)
-        self.minigame_sinus_button.grid(row=12,column=2, padx=5, pady=0, sticky="w")
-
-    # Chemin d'accès jeux
-    jeux_cable_path = os.path.join("powerplant", "classes", "jeux_cable.py")
-    jeux_sinus_path = os.path.join("powerplant", "classes", "jeux_sinus.py")
-
-    # Function to launch the minigame
-    def launch_minigame(self):
-        subprocess.Popen([sys.executable, self.jeux_cable_path])
-
-    # Function to launch the minigame
-    def launch_minigame2(self):
-        subprocess.Popen([sys.executable, self.jeux_sinus_path])    
+        self.grandma_button.grid(row=11,column=1, padx=5, pady=0, sticky="w")   
 
     def add_singe(self):
         self.nSinge += 1
@@ -325,18 +310,45 @@ class MarketingFrame(customtkinter.CTkFrame):
         self.gainpers_label.configure(text=f"Gain/s : {self.gainpers:.4f}")
 
  
-class MyFrame(customtkinter.CTkFrame):
+class MiniGameFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
- 
-        # add widgets onto the frame, for example:
-        self.label = customtkinter.CTkLabel(self)
-        self.label.grid(row=0, column=0, padx=10)
-        self.button1 = customtkinter.CTkButton(self, text="bouton 1", command=self.button1_action)
-        self.button1.grid(row=1,column=0,padx=10)
- 
-    def button1_action(self) :
-        self.button1.configure(state="disabled", text="womp womp")
+        self._bg_color=colors.background_color
+
+        self.minigame_label = customtkinter.CTkLabel(self, text="Minigames :", font=("Arial", 16))
+        self.minigame_label.grid(row=0,column=0, padx=5, pady=25, sticky="nw")
+        self.minigame_sinus_button = customtkinter.CTkButton(self,text="Match the Sine",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame2)
+        self.minigame_sinus_button.grid(row=3,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_dynamo_button = customtkinter.CTkButton(self,text="Turn the dynamo",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame3)
+        self.minigame_dynamo_button.grid(row=4,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_cable_button = customtkinter.CTkButton(self,text="Connect the cables",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame)
+        self.minigame_cable_button.grid(row=5,column=0, padx=5, pady=50, sticky="nsew")
+        self.minigame_simon_button = customtkinter.CTkButton(self,text="Insane Simon game",text_color="black", fg_color=colors.lightButton_color,hover_color=colors.background_color, command=self.launch_minigame4)
+        self.minigame_simon_button.grid(row=6,column=0, padx=5, pady=50, sticky="nsew")
+
+
+    # Chemin d'accès jeux
+    jeux_cable_path = os.path.join("powerplant", "classes", "jeux_cable.py")
+    jeux_sinus_path = os.path.join("powerplant", "classes", "jeux_sinus.py")
+    jeux_dynamo_path = os.path.join("powerplant", "classes", "jeux_dynamo.py")
+    jeux_simon_path = os.path.join("powerplant", "classes", "jeux_simon.py")
+
+     # Function to launch the minigame
+    def launch_minigame(self):
+        subprocess.Popen([sys.executable, self.jeux_cable_path])
+
+    # Function to launch the minigame
+    def launch_minigame2(self):
+        subprocess.Popen([sys.executable, self.jeux_sinus_path])
+    # Function to launch the minigame
+    def launch_minigame3(self):
+        subprocess.Popen([sys.executable, self.jeux_dynamo_path])
+        # Function to launch the minigame
+    def launch_minigame4(self):
+        subprocess.Popen([sys.executable, self.jeux_simon_path]) 
+
+
+        
  
 class App(customtkinter.CTk):
     def __init__(self):
