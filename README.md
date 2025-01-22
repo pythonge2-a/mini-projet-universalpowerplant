@@ -69,8 +69,7 @@ Le joueur contrôle une IA programmée pour maximiser la production d'énergie �
 
 
 ### A réaliser (si le temps nous le permet) :
-- Implementation d'un bouton de sauvegarde du jeux via Pickle. 
-- Implementation d'un bouton de chargement de la sauvegarde via Pickle
+- Implementation de sauvegardes du jeu via Pickle 
 - Un terminal avec des messages
 - Ajout d'un lore
 
