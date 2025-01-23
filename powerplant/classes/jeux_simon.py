@@ -1,5 +1,3 @@
-# Bug après la deuxième séquence correcte, il n'affiche plus de séquence
-
 import customtkinter as ctk
 import random
 
@@ -18,7 +16,7 @@ class SimonGame(ctk.CTk):
         self.time_left = 30
         self.colors = ["red", "blue", "green"]
         self.buttons = {}
-        self.sequence_speed = 600  # Temps initial d'affichage de chaque couleur en ms
+        self.sequence_speed = 1000  # Temps initial d'affichage de chaque couleur en ms
 
         # Création d'un canvas pour dessiner les cercles et les séquences
         self.canvas = ctk.CTkCanvas(self, width=600, height=400)
@@ -78,21 +76,18 @@ class SimonGame(ctk.CTk):
         # Génère et affiche une nouvelle séquence
         self.generate_sequence()
         self.user_sequence = []
-        self.show_sequence()
+        self.show_sequence(0)
 
-    def show_sequence(self):
-        # Désactive les boutons avant d'afficher la séquence
-        self.disable_buttons()
-        # Affiche la séquence de couleurs
-        self.canvas.delete("sequence")
-        for i, color in enumerate(self.sequence):
-            self.after(i * self.sequence_speed, lambda color=color: self.flash_sequence(color))
-        self.after(len(self.sequence) * self.sequence_speed + 500, self.enable_buttons)
-
-    def flash_sequence(self, color):
-        # Affiche la couleur dans le rectangle de séquence
-        self.canvas.create_text(300, 100, text=color.capitalize(), font=("Helvetica", 24), fill=color, tags="sequence")
-        self.after(500, lambda: self.canvas.delete("sequence"))
+    def show_sequence(self, index):
+        if index < len(self.sequence):
+            self.disable_buttons()
+            self.canvas.delete("sequence")
+            color = self.sequence[index]
+            self.canvas.create_oval(275, 75, 325, 125, fill=color, outline=color, tags="sequence")
+            self.after(500, lambda: self.canvas.delete("sequence"))
+            self.after(1000, lambda: self.show_sequence(index + 1))
+        else:
+            self.enable_buttons()
 
     def flash_button(self, color):
         # Fait clignoter un bouton de couleur
@@ -104,6 +99,11 @@ class SimonGame(ctk.CTk):
         for color in self.colors:
             self.canvas.itemconfig(self.buttons[color], state="normal")
 
+    def disable_buttons(self):
+        # Désactive les boutons
+        for color in self.colors:
+            self.canvas.itemconfig(self.buttons[color], state="disabled")
+
     def user_input(self, color):
         # Gère l'entrée de l'utilisateur
         self.user_sequence.append(color)
@@ -114,16 +114,9 @@ class SimonGame(ctk.CTk):
                 self.update_score_label()
                 self.disable_buttons()
                 self.show_feedback("correct")
-                # Réduire le temps d'affichage de la séquence pour augmenter la difficulté
-                self.sequence_speed = max(200, self.sequence_speed - 50)
                 self.after(1000, self.next_sequence)
         else:
             self.show_feedback("incorrect")
-
-    def disable_buttons(self):
-        # Désactive les boutons
-        for color in self.colors:
-            self.canvas.itemconfig(self.buttons[color], state="disabled")
 
     def show_feedback(self, result):
         # Affiche une coche verte pour une séquence correcte ou une croix rouge pour une séquence incorrecte
@@ -139,7 +132,7 @@ class SimonGame(ctk.CTk):
     def show_sequence_again(self):
         # Affiche à nouveau la séquence après une mauvaise séquence
         self.user_sequence = []
-        self.show_sequence()
+        self.show_sequence(0)
 
     def update_timer(self):
         if self.time_left > 0:
