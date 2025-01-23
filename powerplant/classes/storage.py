@@ -25,7 +25,7 @@ class Storage :
         self.stock_min = 200
 
     def get_stock(self):
-        self.stock_max = self.stock_min + self.n_capacitor*self.capacitor + self.n_batterie*self.batterie + self.n_graphene_batterie*self.graphene_batterie + self.n_biocapacitor*self.biocapacitor + self.n_magnetic_container*self.magnetic_container + self.n_quantum_core*self.quantum_core + self.n_antimatter_chamber*self.antimatter_chamber
+        self.stock_max = self.stock_min + self.n_capacitor*self.capacitor + self.n_batterie*self.batterie + self.n_graphene_batterie*self.graphene_batterie + self.n_biocapacitor*self.biocapacitor +self.n_cosmic_crystal * self.cosmic_crystal + self.n_magnetic_container*self.magnetic_container + self.n_quantum_core*self.quantum_core + self.n_antimatter_chamber*self.antimatter_chamber
         return self.stock_max
 
     
