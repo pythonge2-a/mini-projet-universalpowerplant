@@ -13,10 +13,11 @@ class SimonGame(ctk.CTk):
         self.sequence = []
         self.user_sequence = []
         self.score = 0
-        self.time_left = 30
+        self.time_left = 30  # Temps de jeu en secondes
         self.colors = ["red", "blue", "green"]
         self.buttons = {}
         self.sequence_speed = 1000  # Temps initial d'affichage de chaque couleur en ms
+        self.game_over = False  # Indicateur de fin de jeu
 
         # Création d'un canvas pour dessiner les cercles et les séquences
         self.canvas = ctk.CTkCanvas(self, width=600, height=400)
@@ -73,13 +74,14 @@ class SimonGame(ctk.CTk):
         self.sequence = [random.choice(self.colors) for _ in range(3)]
 
     def next_sequence(self):
-        # Génère et affiche une nouvelle séquence
-        self.generate_sequence()
-        self.user_sequence = []
-        self.show_sequence(0)
+        if not self.game_over:
+            # Génère et affiche une nouvelle séquence
+            self.generate_sequence()
+            self.user_sequence = []
+            self.show_sequence(0)
 
     def show_sequence(self, index):
-        if index < len(self.sequence):
+        if not self.game_over and index < len(self.sequence):
             self.disable_buttons()
             self.canvas.delete("sequence")
             color = self.sequence[index]
@@ -105,34 +107,37 @@ class SimonGame(ctk.CTk):
             self.canvas.itemconfig(self.buttons[color], state="disabled")
 
     def user_input(self, color):
-        # Gère l'entrée de l'utilisateur
-        self.user_sequence.append(color)
-        self.flash_button(color)
-        if self.user_sequence == self.sequence[:len(self.user_sequence)]:
-            if len(self.user_sequence) == len(self.sequence):
-                self.score += 1
-                self.update_score_label()
-                self.disable_buttons()
-                self.show_feedback("correct")
-                self.after(1000, self.next_sequence)
-        else:
-            self.show_feedback("incorrect")
+        if not self.game_over:
+            # Gère l'entrée de l'utilisateur
+            self.user_sequence.append(color)
+            self.flash_button(color)
+            if self.user_sequence == self.sequence[:len(self.user_sequence)]:
+                if len(self.user_sequence) == len(self.sequence):
+                    self.score += 1
+                    self.update_score_label()
+                    self.disable_buttons()
+                    self.show_feedback("correct")
+                    self.after(1000, self.next_sequence)
+            else:
+                self.show_feedback("incorrect")
 
     def show_feedback(self, result):
-        # Affiche une coche verte pour une séquence correcte ou une croix rouge pour une séquence incorrecte
-        self.canvas.delete("feedback")
-        if result == "correct":
-            self.canvas.create_text(300, 100, text="✔", font=("Helvetica", 48), fill="lightgreen", tags="feedback")
-            self.after(1000, self.canvas.delete, "feedback")
-        else:
-            self.canvas.create_text(300, 100, text="✘", font=("Helvetica", 48), fill="red", tags="feedback")
-            self.after(1000, self.canvas.delete, "feedback")
-            self.after(1000, self.show_sequence_again)
+        if not self.game_over:
+            # Affiche une coche verte pour une séquence correcte ou une croix rouge pour une séquence incorrecte
+            self.canvas.delete("feedback")
+            if result == "correct":
+                self.canvas.create_text(300, 100, text="✔", font=("Helvetica", 48), fill="lightgreen", tags="feedback")
+                self.after(1000, self.canvas.delete, "feedback")
+            else:
+                self.canvas.create_text(300, 100, text="✘", font=("Helvetica", 48), fill="red", tags="feedback")
+                self.after(1000, self.canvas.delete, "feedback")
+                self.after(1000, self.show_sequence_again)
 
     def show_sequence_again(self):
-        # Affiche à nouveau la séquence après une mauvaise séquence
-        self.user_sequence = []
-        self.show_sequence(0)
+        if not self.game_over:
+            # Affiche à nouveau la séquence après une mauvaise séquence
+            self.user_sequence = []
+            self.show_sequence(0)
 
     def update_timer(self):
         if self.time_left > 0:
@@ -147,6 +152,8 @@ class SimonGame(ctk.CTk):
         self.score_label.configure(text=f"Score: {self.score}")
 
     def end_game(self):
+        # Indique que le jeu est terminé
+        self.game_over = True
         # Efface tout sur l'écran
         self.canvas.delete("all")
         self.time_label.pack_forget()

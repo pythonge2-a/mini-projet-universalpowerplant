@@ -89,10 +89,14 @@ class App:
 
     def update_timer(self):
         if self.time_left > 0:
+            # Décrémente le temps restant
             self.time_left -= 1
+            # Met à jour l'affichage du temps restant
             self.time_label.configure(text=f"Time left: {self.time_left}s")
+            # Appelle cette méthode à nouveau après 1 seconde
             self.root.after(1000, self.update_timer)
         else:
+            # Termine le jeu lorsque le temps est écoulé
             self.end_game()
 
     def update_tours_label(self):
