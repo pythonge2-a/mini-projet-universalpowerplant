@@ -73,12 +73,28 @@ Le joueur contrôle une IA programmée pour maximiser la production d'énergie �
 - Un terminal avec des messages
 - Ajout d'un lore
 
-## Installation
-
+## Guide d'utilisation
+### 1. Cloner le projet
+Pour cloner le projet, exécutez la commande suivante dans votre terminal :
+```bash
+git clone git@github.com:pythonge2-a/mini-projet-universalpowerplant.git
+```
+### 2. Installer les dépendances
+Pour installer les dépendances liée projet, exécutez la commandes suivantes dans votre terminal :
 ```bash
 poetry install # installe les dépendances du projet
-poetry run powerplant # lance le programme
 ```
+### 3. Lancer le jeu
+Enfin, pour lancer le jeu, exécutez la commande suivante dans votre terminal :
+```bash
+poetry run powerplant
+```
+### 4. Lancer les tests unitaires
+Pour lancer les tests unitaires, exécutez la commande suivante dans votre terminal :
+```bash
+poetry run pytest tests/test_Game.py
+```
+Si vous rencontrez des problèmes de dépendances, veuillez consulter la section "Problèmes de dépendances et de versions" ci-dessous.
 
 ## Problèmes de dépendances et de versions 
 Si des erreurs surviennent lorsque vous essayez de lancer le jeu, essayer les solutions suivantes.
@@ -157,7 +173,3 @@ sudo apt update
 sudo apt install libsdl2-mixer-2.0-0
 ```
 
-## Lancement des tests
-```bash
-poetry run pytest tests/test_Game.py
-```
