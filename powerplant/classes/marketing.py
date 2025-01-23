@@ -14,24 +14,3 @@ class marketing:
     def get_unit_sold(self, demand, storage):    #retourne le nombre d'unités vendues
         return int(storage * demand / 100)
     
-    '''
-    def set_user_bank(self, bank):    #définit la banque utilisateur (utile pour les tests unitaires)
-        self.bank = bank
-        return self.bank
-    
-    
-    def set_user_price(self, price):    #définit le prix de vente utilisateur
-        self.user_price = price
-        return self.user_price
-
-    
-    
-    def get_user_bank(self):    #retourne la valeur de la banque utilisateur
-        return self.bank
-    
-    
-    def update_user_bank(self, demand, storage):    #met à jour la banque utilisateur
-        self.bank += self.get_user_gain(demand, storage)
-        return self.bank'''
-
-    

@@ -31,11 +31,6 @@ class production:
         self.nDimension     = 0
         self.nGrandmere     = 0
 
-
-    def set_production_active(self, n):
-        self.production_active = n
-        return self.production_active
-
     def update_production_passive(self):
         self.production_passive = self.nSinge*self.singe + self.nMoulin*self.moulin + self.nChampignon*self.champignon + self.nSolaire*self.solaire + self.nBiomasse*self.biomasse + self.nNucleaire*self.nucleaire + self.nFusion*self.fusion + self.nDyson*self.dyson + self.nDimension*self.dimension + self.nGrandmere*self.grandmere
         return self.production_passive
@@ -44,38 +39,7 @@ class production:
         self.update_production_passive()
         return self.production_active + self.production_passive
     
-    def add_singe(self):
-        self.nSinge += 1
 
-    def add_moulin(self):
-        self.nMoulin += 1
-
-    def add_champignon(self):
-        self.nChampignon += 1
-
-    def add_solaire(self):
-        self.nSolaire += 1
-
-    def add_biomasse(self):
-        self.nBiomasse += 1
-
-    def add_nucleaire(self):
-        self.nNucleaire += 1
-
-    def add_fusion(self):
-        self.nFusion += 1
-
-    def add_dyson(self):
-        self.nDyson += 1
-
-    def add_galaxy(self):
-        self.nGalaxy += 1
-
-    def add_dimension(self):
-        self.nDimension += 1
-    
-    def add_grandmere(self):
-        self.nGrandmere += 1
 
 
         
